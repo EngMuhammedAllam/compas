@@ -121,7 +121,7 @@
                     </a>
                     <ul class="slide-menu child1">
                         <li class="slide">
-                            <a href="" class="side-menu__item text-capitalize">
+                            <a href="{{ route('admin.counters.index') }}" class="side-menu__item text-capitalize">
                                 تعديل المؤشرات
                             </a>
                         </li>
@@ -137,7 +137,7 @@
                     </a>
                     <ul class="slide-menu child1">
                         <li class="slide">
-                            <a href="" class="side-menu__item text-capitalize">
+                            <a href="{{ route('posts.index') }}" class="side-menu__item text-capitalize">
                                 كافة المقالات
                             </a>
                         </li>
@@ -153,7 +153,7 @@
                     </a>
                     <ul class="slide-menu child1">
                         <li class="slide">
-                            <a href="" class="side-menu__item text-capitalize">
+                            <a href="{{ route('admin.contact-settings.edit') }}" class="side-menu__item text-capitalize">
                                 تعديل معلومات الاتصال
                             </a>
                         </li>

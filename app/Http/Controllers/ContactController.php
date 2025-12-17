@@ -13,7 +13,8 @@ class ContactController extends Controller
      */
     public function index()
     {
-        
+        $messages = Contact::latest()->paginate(10);
+        return view('dashboard.contacts.index', compact('messages'));
     }
 
     /**
@@ -24,7 +25,7 @@ class ContactController extends Controller
         //
     }
 
-     /**
+    /**
      * Store a newly created resource in storage.
      */
     public function store(ContactRequest $request)
@@ -71,6 +72,7 @@ class ContactController extends Controller
      */
     public function destroy(Contact $contact)
     {
-        //
+        $contact->delete();
+        return redirect()->route('admin.contact.index')->with('success', 'Message deleted successfully.');
     }
 }

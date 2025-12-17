@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Models\Counter;
+use Illuminate\Http\Request;
 
 class CounterController extends Controller
 {
@@ -13,7 +13,8 @@ class CounterController extends Controller
      */
     public function index()
     {
-        //
+        $counters = Counter::latest()->get();
+        return view('dashboard.counters.index', compact('counters'));
     }
 
     /**
@@ -21,7 +22,7 @@ class CounterController extends Controller
      */
     public function create()
     {
-        //
+        return view('dashboard.counters.create');
     }
 
     /**
@@ -29,7 +30,14 @@ class CounterController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->validate([
+            'number' => 'required|string',
+            'title' => 'required|string',
+        ]);
+
+        Counter::create($data);
+
+        return redirect()->route('admin.counters.index')->with('success', 'Counter created successfully.');
     }
 
     /**
@@ -45,7 +53,7 @@ class CounterController extends Controller
      */
     public function edit(Counter $counter)
     {
-        //
+        return view('dashboard.counters.edit', compact('counter'));
     }
 
     /**
@@ -53,7 +61,14 @@ class CounterController extends Controller
      */
     public function update(Request $request, Counter $counter)
     {
-        //
+        $data = $request->validate([
+            'number' => 'required|string',
+            'title' => 'required|string',
+        ]);
+
+        $counter->update($data);
+
+        return redirect()->route('admin.counters.index')->with('success', 'Counter updated successfully.');
     }
 
     /**
@@ -61,6 +76,7 @@ class CounterController extends Controller
      */
     public function destroy(Counter $counter)
     {
-        //
+        $counter->delete();
+        return redirect()->route('admin.counters.index')->with('success', 'Counter deleted successfully.');
     }
 }

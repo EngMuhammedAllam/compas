@@ -32,7 +32,10 @@ class DatabaseSeeder extends Seeder
             TestimonialSeeder::class,
             BlogCategorySeeder::class,
             BlogPostSeeder::class,
+            AboutSeeder::class,
+            CtaSeeder::class,
+            ContactSettingSeeder::class,
+            CounterSeeder::class,
         ]);
-
     }
 }

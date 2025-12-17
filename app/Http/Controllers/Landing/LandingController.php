@@ -14,33 +14,42 @@ use App\Models\Projects\ProjectSection;
 use App\Models\Testimonials\SectionTestimonial;
 use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogCategory;
+use App\Models\Counter;
+use App\Models\ContactSetting;
+use App\Models\AboutSection;
+use App\Models\CtaSection;
+
 
 class LandingController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */ 
+     */
     public function index()
     {
         $heroSection = HeroSection::first();
+        $counters = Counter::take(4)->get();
+        $contactSetting = ContactSetting::first();
+        $aboutSection = AboutSection::with('points')->first();
+        $ctaSection = CtaSection::first();
 
         $features = Feature::get();
         $sectionServices = ServiceSection::first();
         $projectSection  = ProjectSection::first();
         $projectcategories   = ProjectCategory::with('images')->active()->get();
         $serviceSection = ServiceSection::active();
-        $services = $serviceSection->services()->active()->ordered()->get();  
+        $services = $serviceSection->services()->active()->ordered()->get();
         $testimonialSection = SectionTestimonial::where('is_active', 1)->first();
         $testimonials = $testimonialSection
             ? $testimonialSection->testimonials()->active()->orderBy('sort_order', 'asc')->get()
-            : collect([]);    
+            : collect([]);
         $posts = BlogPost::with('category')
             ->active()
             ->published()
             ->orderBy('published_at', 'desc')
             ->take(3)
-            ->get(); 
-         return view('landing.index', get_defined_vars());
+            ->get();
+        return view('landing.index', get_defined_vars());
     }
 
     /**

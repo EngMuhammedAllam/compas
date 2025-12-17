@@ -86,19 +86,17 @@
 
                 <!-- About Content -->
                 <div class="animate_right jn/2" id="about">
-                    <h4 class="ek yj mk gb">لماذا تختار خدماتنا</h4>
-                    <h2 class="fk vj zp pr kk wm qb">نضمن لك أنظمة تبريد وتكييف مركزية بكفاءة وجودة عالية</h2>
-                    <p class="uo">نتميز بخبرة واسعة في تصميم وتركيب وصيانة أنظمة التبريد والتكييف المركزية. نستخدم أحدث التقنيات ونتابع أحدث المعايير العالمية لضمان أداء مثالي وطويل الأمد لأنظمتك.</p>
+                    <h4 class="ek yj mk gb">{{ $aboutSection->title ?? 'لماذا تختار خدماتنا' }}</h4>
+                    <h2 class="fk vj zp pr kk wm qb">{{ $aboutSection->subtitle ?? 'نضمن لك أنظمة تبريد وتكييف مركزية بكفاءة وجودة عالية' }}</h2>
+                    <p class="uo">{{ $aboutSection->description ?? '' }}</p>
 
                     <ul class="uo mb-6">
-                        <li class="mb-2">• خبرة أكثر من 15 عاماً في مجال التبريد والتكييف</li>
-                        <li class="mb-2">• فريق فني مؤهل ومدرب على أحدث التقنيات</li>
-                        <li class="mb-2">• استخدام معدات وقطع غيار عالية الجودة</li>
-                        <li class="mb-2">• خدمة عملاء على مدار 24/7 للطوارئ</li>
-                        <li class="mb-2">• ضمان على الأعمال والقطع لمدة تصل إلى 5 سنوات</li>
+                        @foreach ($aboutSection->points as $point)
+                        <li class="mb-2">• {{ $point->content }}</li>
+                        @endforeach
                     </ul>
 
-                    <a href="https://www.youtube.com/watch?v=wBsEe-gpeCQ" data-fslightbox class="vc wf hg mb">
+                    <a href="{{ $aboutSection->video_url ?? 'https://www.youtube.com/watch?v=wBsEe-gpeCQ' }}" data-fslightbox class="vc wf hg mb">
                         <span class="tc wf xf be dd rg i gh ua">
                             <span class="nf h vc yc vd rg gh qk -ud-z-1"></span>
                             <img src="{{ secure_asset('land/images/icon-play.svg')}}" alt="تشغيل" />
@@ -473,31 +471,39 @@
                     <div class="fb space-y-6">
                         <div>
                             <h4 class="wj kk wm cc">البريد الإلكتروني</h4>
-                            <p><a href="mailto:mas.company@cooltech.com">mas.company@cooltech.com</a></p>
+                            <p><a href="mailto:{{ $contactSetting->email ?? '' }}">{{ $contactSetting->email ?? '' }}</a></p>
                         </div>
 
                         <div>
                             <h4 class="wj kk wm cc">موقع المكتب</h4>
-                            <p>المنطقة الصناعية – القاهرة الجديدة، جمهورية مصر العربية</p>
+                            <p>{{ $contactSetting->address ?? '' }}</p>
                         </div>
 
                         <div>
                             <h4 class="wj kk wm cc">رقم الهاتف</h4>
-                            <p><a href="tel:+201234567890">+20 123 456 7890</a></p>
+                            <p><a href="tel:{{ $contactSetting->phone ?? '' }}">{{ $contactSetting->phone  ?? ''}}</a></p>
                         </div>
 
                         <div>
                             <h4 class="wj kk wm cc">واتساب الدعم الفني</h4>
-                            <p><a href="https://wa.me/201234567890">اضغط هنا للتحدث الآن</a></p>
+                            <p><a href="https://wa.me/{{ $contactSetting->phone ?? '' }}">اضغط هنا للتحدث الآن</a></p>
                         </div>
 
                         <div>
                             <h4 class="wj kk wm qb">تابعنا على</h4>
                             <ul class="tc wf fg flex gap-4">
-                                <li><a href="#" class="c tc wf xf ie ld rg ml il tl" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a></li>
-                                <li><a href="#" class="c tc wf xf ie ld rg ml il tl" aria-label="تويتر"><i class="fa-brands fa-x-twitter"></i></a></li>
-                                <li><a href="#" class="c tc wf xf ie ld rg ml il tl" aria-label="لينكدإن"><i class="fa-brands fa-linkedin-in"></i></a></li>
-                                <li><a href="#" class="c tc wf xf ie ld rg ml il tl" aria-label="إنستجرام"><i class="fa-brands fa-instagram"></i></a></li>
+                                @if($contactSetting && $contactSetting->facebook)
+                                <li><a href="{{ $contactSetting->facebook }}" class="c tc wf xf ie ld rg ml il tl" aria-label="فيسبوك"><i class="fa-brands fa-facebook-f"></i></a></li>
+                                @endif
+                                @if($contactSetting && $contactSetting->twitter)
+                                <li><a href="{{ $contactSetting->twitter }}" class="c tc wf xf ie ld rg ml il tl" aria-label="تويتر"><i class="fa-brands fa-x-twitter"></i></a></li>
+                                @endif
+                                @if($contactSetting && $contactSetting->linkedin)
+                                <li><a href="{{ $contactSetting->linkedin }}" class="c tc wf xf ie ld rg ml il tl" aria-label="لينكدإن"><i class="fa-brands fa-linkedin-in"></i></a></li>
+                                @endif
+                                @if($contactSetting && $contactSetting->instagram)
+                                <li><a href="{{ $contactSetting->instagram }}" class="c tc wf xf ie ld rg ml il tl" aria-label="إنستجرام"><i class="fa-brands fa-instagram"></i></a></li>
+                                @endif
                             </ul>
                         </div>
                     </div>
@@ -563,11 +569,10 @@
                 <!-- النص -->
                 <div class="animate_left to/2">
                     <h2 class="fk vj zp pr lk ac">
-                        انضم إلى أكثر من 1000 عميل يثقون بخدماتنا في غرف التبريد والتجميد وأنظمة التكييف.
+                        {{ $ctaSection->title ?? 'انضم إلى أكثر من 1000 عميل يثقون بخدماتنا في غرف التبريد والتجميد وأنظمة التكييف.' }}
                     </h2>
                     <p class="lk">
-                        نقدم حلول متكاملة في تصميم وتنفيذ غرف التبريد والتجميد وأنظمة التكييف المركزي
-                        للمصانع، المخازن، والمشروعات التجارية بجودة وكفاءة عالية.
+                        {{ $ctaSection->description ?? 'نقدم حلول متكاملة في تصميم وتنفيذ غرف التبريد والتجميد وأنظمة التكييف المركزي للمصانع، المخازن، والمشروعات التجارية بجودة وكفاءة عالية.' }}
                     </p>
                 </div>
             </div>

@@ -13,13 +13,13 @@ class BlogPostController extends Controller
     public function index()
     {
         $posts = BlogPost::with('category')->latest()->paginate(10);
-        return view('admin.blog.posts.index', compact('posts'));
+        return view('dashboard.blog.posts.index', compact('posts'));
     }
 
     public function create()
     {
         $categories = BlogCategory::active()->get();
-        return view('admin.blog.posts.create', compact('categories'));
+        return view('dashboard.blog.posts.create', compact('categories'));
     }
 
     public function store(Request $request)
@@ -46,7 +46,7 @@ class BlogPostController extends Controller
     public function edit(BlogPost $post)
     {
         $categories = BlogCategory::active()->get();
-        return view('admin.blog.posts.edit', compact('post', 'categories'));
+        return view('dashboard.blog.posts.edit', compact('post', 'categories'));
     }
 
     public function update(Request $request, BlogPost $post)
