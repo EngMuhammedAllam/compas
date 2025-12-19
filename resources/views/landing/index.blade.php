@@ -194,10 +194,37 @@
                 @endforeach
             </div>
 
+
         </div>
 
     </section>
     <!-- ===== Projects End ===== -->
+
+    <!-- ===== Clients Start ===== -->
+    <section class="pj vp mr">
+        <!-- Section Title Start -->
+        <div x-data="{ sectionTitle: `شركاء النجاح`, sectionTitleText: `نفخر بشراكتنا مع كبرى الشركات والمؤسسات التي وثقت في خدماتنا وحلولنا المتميزة في مجال التبريد والتكييف.`}">
+            <div class="animate_top bb ze rj ki xn vq">
+                <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b">
+                </h2>
+                <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>
+            </div>
+        </div>
+        <!-- Section Title End -->
+
+        <div class="bb ze ah ch pm hj xp ki xn 2xl:ud-px-49 bc">
+            <div class="wc rf qn zf cp kq xf wf">
+                @foreach ($clients as $client)
+                <a href="{{ $client->link ?? '#!' }}" class="rc animate_top" target="{{ $client->link ? '_blank' : '_self' }}" title="{{ $client->name }}">
+                    <img class="th wl ml il zl om" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" />
+                    <img class="xc sk ml il zl nm" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" />
+                    <span class="d-block mt-2 text-center text-sm font-medium text-gray-700 dark:text-gray-300">{{ $client->name }}</span>
+                </a>
+                @endforeach
+            </div>
+        </div>
+    </section>
+    <!-- ===== Clients End ===== -->
 
     <!-- ===== Services Start ===== -->
     <section class="lj tp kr i pg fh rm ji gp uq">
@@ -453,7 +480,7 @@
 
         <!-- عنوان القسم -->
         <div id="contact" class="bb ze rj ki xn vq mb en"
-            x-data="{ sectionTitle: `تواصل معنا`, sectionTitleText: `نحن متخصصون في تصميم وتنفيذ غرف التبريد والتجميد وأنظمة التكييف المركزي بجودة عالية. تواصل معنا لأي استفسار أو طلب عرض سعر.` }">
+            x-data="{ sectionTitle: `{{ $contactSetting->title ?? 'تواصل معنا' }}`, sectionTitleText: `{{ $contactSetting->description ?? 'نحن متخصصون في تصميم وتنفيذ غرف التبريد والتجميد وأنظمة التكييف المركزي بجودة عالية. تواصل معنا لأي استفسار أو طلب عرض سعر.' }}` }">
             <div class="animate_top bb ze rj ki xn vq text-center">
                 <h2 x-text="sectionTitle" class="fk vj pr kk wm on/5 gq/2 bb _b"></h2>
                 <p class="bb on/5 wo/5 hq" x-text="sectionTitleText"></p>

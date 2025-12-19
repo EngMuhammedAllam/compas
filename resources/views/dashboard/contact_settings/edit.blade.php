@@ -36,6 +36,19 @@
                             @csrf
                             @method('PUT')
                             <div class="row">
+                                <h5 class="mb-3">معلومات قسم التواصل</h5>
+
+                                <div class="col-md-12 mb-3">
+                                    <label for="title" class="form-label">عنوان القسم</label>
+                                    <input type="text" class="form-control" id="title" name="title" value="{{ $setting->title }}" placeholder="تواصل معنا">
+                                </div>
+                                <div class="col-md-12 mb-3">
+                                    <label for="description" class="form-label">وصف القسم</label>
+                                    <textarea class="form-control" id="description" name="description" rows="3" placeholder="نحن متخصصون في تصميم وتنفيذ غرف التبريد والتجميد...">{{ $setting->description }}</textarea>
+                                </div>
+
+                                <h5 class="mt-4 mb-3">معلومات الاتصال</h5>
+
                                 <div class="col-md-6 mb-3">
                                     <label for="email" class="form-label">البريد الإلكتروني</label>
                                     <input type="email" class="form-control" id="email" name="email" value="{{ $setting->email }}">

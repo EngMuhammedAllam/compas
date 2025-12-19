@@ -18,9 +18,9 @@
             <div class="col-xl-12">
                 <div class="card custom-card">
                     <div class="card-body">
-                        <form action="{{ route('posts.update', $post->id) }}" method="POST" enctype="multipart/form-data">
+                        <form action="{{ route('admin.posts.update') }}" method="POST" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            <input type="hidden" name="id" value="{{ $post->id }}">
                             <div class="row gy-4">
                                 <div class="col-xl-6">
                                     <label for="title" class="form-label">العنوان</label>

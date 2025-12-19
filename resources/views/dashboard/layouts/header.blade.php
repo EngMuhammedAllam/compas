@@ -13,13 +13,13 @@
                     <div class="header-element">
                         <div class="horizontal-logo">
                             <a href="" class="header-logo">
-                                <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+                                <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                                     class="desktop-logo">
-                                <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+                                <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                                     class="toggle-logo">
-                                <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+                                <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                                     class="desktop-dark">
-                                <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+                                <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                                     class="toggle-dark">
                             </a>
                         </div>
@@ -239,7 +239,7 @@
                             data-bs-auto-close="outside" aria-expanded="false">
                             <div class="d-flex align-items-center">
                                 <div class="me-sm-2 me-0">
-                                    <img src="{{ secure_asset('assets/images/faces/avatar.png')}}" alt="img" width="32"
+                                    <img src="{{ asset('assets/images/faces/avatar.png')}}" alt="img" width="32"
                                         height="32" class="rounded-circle">
                                 </div>
                                 <div class="d-sm-block d-none">

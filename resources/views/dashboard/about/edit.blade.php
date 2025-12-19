@@ -87,7 +87,7 @@
                         <form action="{{ route('admin.about.points.store') }}" method="post" class="mb-4">
                             @csrf
                             <div class="input-group">
-                                <input type="text" class="form-control" name="text" placeholder="أضف نقطة جديدة" required>
+                                <input type="text" class="form-control" name="content" placeholder="أضف نقطة جديدة" required>
                                 <button class="btn btn-outline-primary" type="submit">إضافة</button>
                             </div>
                         </form>
@@ -95,7 +95,7 @@
                         <ul class="list-group">
                             @foreach($points as $point)
                             <li class="list-group-item d-flex justify-content-between align-items-center">
-                                {{ $point->text }}
+                                {{ $point->content }}
                                 <form action="{{ route('admin.about.points.destroy', $point->id) }}" method="post">
                                     @csrf
                                     @method('DELETE')

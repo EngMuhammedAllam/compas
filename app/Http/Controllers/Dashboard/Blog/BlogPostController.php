@@ -40,17 +40,19 @@ class BlogPostController extends Controller
         }
 
         BlogPost::create($data);
-        return redirect()->route('posts.index')->with('success', 'تم إضافة المقال بنجاح');
+        return redirect()->route('admin.posts.index')->with('success', 'تم إضافة المقال بنجاح');
     }
 
-    public function edit(BlogPost $post)
+    public function edit(Request $request)
     {
+        $post = BlogPost::findOrFail($request->id);
         $categories = BlogCategory::active()->get();
         return view('dashboard.blog.posts.edit', compact('post', 'categories'));
     }
 
-    public function update(Request $request, BlogPost $post)
+    public function update(Request $request)
     {
+        $post = BlogPost::findOrFail($request->id);
         $data = $request->validate([
             'title' => 'required',
             'excerpt' => 'nullable',
@@ -67,12 +69,13 @@ class BlogPostController extends Controller
         }
 
         $post->update($data);
-        return redirect()->route('posts.index')->with('success', 'تم تعديل المقال بنجاح');
+        return redirect()->route('admin.posts.index')->with('success', 'تم تعديل المقال بنجاح');
     }
 
-    public function destroy(BlogPost $post)
+    public function destroy(Request $request)
     {
+        $post = BlogPost::findOrFail($request->id);
         $post->delete();
-        return redirect()->route('posts.index')->with('success', 'تم حذف المقال');
+        return redirect()->route('admin.posts.index')->with('success', 'تم حذف المقال');
     }
 }

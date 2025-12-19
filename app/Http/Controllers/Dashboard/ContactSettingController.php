@@ -19,6 +19,8 @@ class ContactSettingController extends Controller
         $setting = ContactSetting::firstOrCreate([]);
 
         $data = $request->validate([
+            'title' => 'nullable|string|max:255',
+            'description' => 'nullable|string',
             'email' => 'nullable|email',
             'phone' => 'nullable|string',
             'address' => 'nullable|string',

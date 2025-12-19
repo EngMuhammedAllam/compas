@@ -19,6 +19,7 @@ use App\Http\Controllers\Dashboard\CounterController;
 use App\Http\Controllers\Dashboard\ContactSettingController;
 use App\Http\Controllers\Dashboard\AboutSectionController;
 use App\Http\Controllers\Dashboard\CtaSectionController;
+use App\Http\Controllers\Dashboard\ClientController;
 
 //  ========================================== Default Redirect ==========================================
 
@@ -94,7 +95,12 @@ Route::group([], function () {
     Route::put('/contact-settings', [ContactSettingController::class, 'update'])->name('admin.contact-settings.update');
 
     // ############################ [Counters] Section Route ############################
-    Route::resource('counters', CounterController::class, ['as' => 'admin']);
+    Route::get('counters', [CounterController::class, 'index'])->name('admin.counters.index');
+    Route::get('counters/create', [CounterController::class, 'create'])->name('admin.counters.create');
+    Route::post('counter-store', [CounterController::class, 'store'])->name('admin.counters.store');
+    Route::post('counter-edit', [CounterController::class, 'edit'])->name('admin.counters.edit');
+    Route::post('counter-update', [CounterController::class, 'update'])->name('admin.counters.update');
+    Route::delete('counter-destroy', [CounterController::class, 'destroy'])->name('admin.counters.destroy');
 
     // ############################ [About] Section Route ############################
     Route::get('/about', [AboutSectionController::class, 'edit'])->name('admin.about.edit');
@@ -102,10 +108,25 @@ Route::group([], function () {
     Route::post('/about/points', [AboutSectionController::class, 'storePoint'])->name('admin.about.points.store');
     Route::delete('/about/points/{id}', [AboutSectionController::class, 'destroyPoint'])->name('admin.about.points.destroy');
 
+    // ############################ [Clients] Section Route ############################
+    Route::controller(ClientController::class)->group(function () {
+        Route::get('/clients', 'index')->name('admin.clients.index');
+        Route::get('/clients/create', 'create')->name('admin.clients.create');
+        Route::post('/clients/store', 'store')->name('admin.clients.store');
+        Route::post('/clients/edit', 'edit')->name('admin.clients.edit');
+        Route::post('/clients/update', 'update')->name('admin.clients.update');
+        Route::post('/clients/destroy', 'destroy')->name('admin.clients.destroy');
+    });
+
     // ############################ [CTA] Section Route ############################
     Route::get('/cta', [CtaSectionController::class, 'edit'])->name('admin.cta.edit');
     Route::put('/cta', [CtaSectionController::class, 'update'])->name('admin.cta.update');
 
     // ############################ [Blog] Section Route ############################
-    Route::resource('posts', BlogPostController::class);
+    Route::get('posts', [BlogPostController::class, 'index'])->name('admin.posts.index');
+    Route::get('posts/create', [BlogPostController::class, 'create'])->name('admin.posts.create');
+    Route::post('posts-store', [BlogPostController::class, 'store'])->name('admin.posts.store');
+    Route::post('posts-edit', [BlogPostController::class, 'edit'])->name('admin.posts.edit');
+    Route::post('posts-update', [BlogPostController::class, 'update'])->name('admin.posts.update');
+    Route::delete('posts-destroy', [BlogPostController::class, 'destroy'])->name('admin.posts.destroy');
 });

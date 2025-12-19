@@ -57,9 +57,13 @@
                                     <td>{{ $counter->title }}</td>
                                     <td>
                                         <div class="hstack gap-2 fs-15">
-                                            <a href="{{ route('admin.counters.edit', $counter->id) }}" class="btn btn-icon btn-sm btn-success-light">
-                                                <i class="ri-edit-line"></i>
-                                            </a>
+                                            <form action="{{ route('admin.counters.edit') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $counter->id }}">
+                                                <button type="submit" class="btn btn-icon btn-sm btn-success-light">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                            </form>
                                             <a class="btn btn-icon btn-sm btn-danger-light" data-bs-toggle="modal" data-bs-target="#deleteCounterModal-{{ $counter->id }}">
                                                 <i class="ri-delete-bin-line"></i>
                                             </a>
@@ -71,10 +75,11 @@
                                 <div class="modal fade" id="deleteCounterModal-{{ $counter->id }}" tabindex="-1" aria-labelledby="deleteCounterModalLabel" aria-hidden="true">
                                     <div class="modal-dialog">
                                         <div class="modal-content">
-                                            <form action="{{ route('admin.counters.destroy', $counter->id) }}" method="post">
+                                            <form action="{{ route('admin.counters.destroy') }}" method="post">
                                                 @csrf
                                                 @method('DELETE')
                                                 <div class="modal-header">
+                                                    <input type="hidden" name="id" value="{{ $counter->id }}">
                                                     <h5 class="modal-title">حـــــذف العداد</h5>
                                                     <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
                                                 </div>

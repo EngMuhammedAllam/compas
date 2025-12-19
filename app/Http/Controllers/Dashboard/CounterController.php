@@ -51,16 +51,18 @@ class CounterController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Counter $counter)
+    public function edit(Request $request)
     {
+        $counter = Counter::findOrFail($request->id);
         return view('dashboard.counters.edit', compact('counter'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Counter $counter)
+    public function update(Request $request)
     {
+        $counter = Counter::findOrFail($request->id);
         $data = $request->validate([
             'number' => 'required|string',
             'title' => 'required|string',
@@ -74,8 +76,9 @@ class CounterController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Counter $counter)
+    public function destroy(Request $request)
     {
+        $counter = Counter::findOrFail($request->id);
         $counter->delete();
         return redirect()->route('admin.counters.index')->with('success', 'Counter deleted successfully.');
     }

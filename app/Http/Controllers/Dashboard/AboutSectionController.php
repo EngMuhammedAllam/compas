@@ -50,13 +50,13 @@ class AboutSectionController extends Controller
 
     public function storePoint(Request $request)
     {
-        $request->validate(['text' => 'required|string']);
+        $request->validate(['content' => 'required|string']);
         $about = AboutSection::first();
         if (!$about) return redirect()->back()->with('error', 'Please save about section first');
 
         AboutPoint::create([
             'about_section_id' => $about->id,
-            'text' => $request->text
+            'content' => $request->content
         ]);
         return redirect()->back()->with('success', 'Point added successfully');
     }

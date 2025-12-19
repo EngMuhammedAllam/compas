@@ -4,13 +4,13 @@
     <!-- Start::main-sidebar-header -->
     <div class="main-sidebar-header">
         <a href="{{ route('dashboard') }}" class="header-logo">
-            <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+            <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                 class="desktop-logo">
-            <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+            <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                 class="toggle-logo">
-            <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+            <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                 class="desktop-dark">
-            <img src="{{ secure_asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
+            <img src="{{ asset('assets/images/brand-logos/logo-light.png')}}" alt="logo" style="width: 80px !important; height: 80px !important;"
                 class="toggle-dark">
         </a>
     </div>
@@ -137,8 +137,56 @@
                     </a>
                     <ul class="slide-menu child1">
                         <li class="slide">
-                            <a href="{{ route('posts.index') }}" class="side-menu__item text-capitalize">
+                            <a href="{{ route('admin.posts.index') }}" class="side-menu__item text-capitalize">
                                 كافة المقالات
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- من نحن (About) -->
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item text-capitalize">
+                        <i class="bx bx-info-circle side-menu__icon"></i>
+                        <span class="side-menu__label">من نحن</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{{ route('admin.about.edit') }}" class="side-menu__item text-capitalize">
+                                تعديل قسم من نحن
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- الدعوة للعمل (CTA) -->
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item text-capitalize">
+                        <i class="bx bx-bullhorn side-menu__icon"></i>
+                        <span class="side-menu__label">الدعوة للعمل</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{{ route('admin.cta.edit') }}" class="side-menu__item text-capitalize">
+                                تعديل قسم الدعوة
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <!-- العملاء (Clients) -->
+                <li class="slide has-sub">
+                    <a href="javascript:void(0);" class="side-menu__item text-capitalize">
+                        <i class="bx bx-world side-menu__icon"></i>
+                        <span class="side-menu__label">العملاء</span>
+                        <i class="fe fe-chevron-right side-menu__angle"></i>
+                    </a>
+                    <ul class="slide-menu child1">
+                        <li class="slide">
+                            <a href="{{ route('admin.clients.index') }}" class="side-menu__item text-capitalize">
+                                شعارات العملاء
                             </a>
                         </li>
                     </ul>
@@ -154,7 +202,7 @@
                     <ul class="slide-menu child1">
                         <li class="slide">
                             <a href="{{ route('admin.contact-settings.edit') }}" class="side-menu__item text-capitalize">
-                                تعديل معلومات الاتصال
+                                تعديل قسم التواصل
                             </a>
                         </li>
                     </ul>

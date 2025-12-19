@@ -25,9 +25,9 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="{{ route('admin.counters.update', $counter->id) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.counters.update') }}" method="post" enctype="multipart/form-data">
                             @csrf
-                            @method('PUT')
+                            <input type="hidden" name="id" value="{{ $counter->id }}">
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label for="number" class="form-label">الرقم (العدد)</label>

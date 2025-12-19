@@ -31,7 +31,10 @@ class LandingController extends Controller
         $counters = Counter::take(4)->get();
         $contactSetting = ContactSetting::first();
         $aboutSection = AboutSection::with('points')->first();
+        $contactSetting = ContactSetting::first();
+        $aboutSection = AboutSection::with('points')->first();
         $ctaSection = CtaSection::first();
+        $clients = \App\Models\Client::latest()->get();
 
         $features = Feature::get();
         $sectionServices = ServiceSection::first();

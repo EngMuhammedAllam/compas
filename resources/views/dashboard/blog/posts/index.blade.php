@@ -30,7 +30,7 @@
                 <div class="card custom-card">
                     <div class="card-header justify-content-between">
                         <div class="card-title">قائمة المقالات</div>
-                        <a href="{{ route('posts.create') }}" class="btn btn-primary">إضافة مقال جديد</a>
+                        <a href="{{ route('admin.posts.create') }}" class="btn btn-primary">إضافة مقال جديد</a>
                     </div>
                     <div class="card-body">
                         @if (session('success'))
@@ -65,12 +65,17 @@
                                     </td>
                                     <td>
                                         <div class="hstack gap-2">
-                                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-icon btn-sm btn-success-light">
-                                                <i class="ri-edit-line"></i>
-                                            </a>
-                                            <form action="{{ route('posts.destroy', $post->id) }}" method="POST">
+                                            <form action="{{ route('admin.posts.edit') }}" method="POST" class="d-inline">
+                                                @csrf
+                                                <input type="hidden" name="id" value="{{ $post->id }}">
+                                                <button type="submit" class="btn btn-icon btn-sm btn-success-light">
+                                                    <i class="ri-edit-line"></i>
+                                                </button>
+                                            </form>
+                                            <form action="{{ route('admin.posts.destroy') }}" method="POST">
                                                 @csrf
                                                 @method('DELETE')
+                                                <input type="hidden" name="id" value="{{ $post->id }}">
                                                 <button type="submit" class="btn btn-icon btn-sm btn-danger-light" onclick="return confirm('هل أنت متأكد؟')">
                                                     <i class="ri-delete-bin-line"></i>
                                                 </button>
