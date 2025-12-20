@@ -141,6 +141,11 @@
                                 كافة المقالات
                             </a>
                         </li>
+                        <li class="slide">
+                            <a href="{{ route('admin.blog.section.edit') }}" class="side-menu__item text-capitalize">
+                                إعدادات القسم
+                            </a>
+                        </li>
                     </ul>
                 </li>
 
@@ -206,6 +211,14 @@
                             </a>
                         </li>
                     </ul>
+                </li>
+
+                <!-- إعدادات SEO -->
+                <li class="slide">
+                    <a href="{{ route('admin.seo.edit') }}" class="side-menu__item text-capitalize">
+                        <i class="bx bx-search-alt side-menu__icon"></i>
+                        <span class="side-menu__label">إعدادات SEO</span>
+                    </a>
                 </li>
 
             </ul>

@@ -15,11 +15,15 @@ use App\Http\Controllers\Dashboard\Service\ServiceSectionController;
 use App\Http\Controllers\Dashboard\Testimonial\TestimonialController;
 use App\Http\Controllers\Dashboard\Testimonial\SectionTestimonialController;
 use App\Http\Controllers\Dashboard\Blog\BlogPostController;
+use App\Http\Controllers\Dashboard\Blog\BlogSectionController;
+use App\Http\Controllers\Dashboard\SeoSettingController;
 use App\Http\Controllers\Dashboard\CounterController;
 use App\Http\Controllers\Dashboard\ContactSettingController;
 use App\Http\Controllers\Dashboard\AboutSectionController;
 use App\Http\Controllers\Dashboard\CtaSectionController;
 use App\Http\Controllers\Dashboard\ClientController;
+use App\Http\Controllers\Landing\SitemapController;
+use App\Http\Controllers\Landing\RobotsTxtController;
 
 //  ========================================== Default Redirect ==========================================
 
@@ -27,6 +31,8 @@ Route::get('/', [LandingController::class, 'index'])->name('landing');
 Route::get('/blog/{id}', [LandingController::class, 'showSingleBlog'])->name('blog.show');
 Route::get('/blog/category/{id}', [LandingController::class, 'showBlogCategory'])->name('blog.category');
 Route::post('/contact-submit', [ContactController::class, 'store'])->name('contact.submit');
+Route::get('/robots.txt', [RobotsTxtController::class, 'index']);
+Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // ############################## [[== Admin ==]] Routes ################################### //
 Route::group([], function () {
@@ -129,4 +135,12 @@ Route::group([], function () {
     Route::post('posts-edit', [BlogPostController::class, 'edit'])->name('admin.posts.edit');
     Route::post('posts-update', [BlogPostController::class, 'update'])->name('admin.posts.update');
     Route::delete('posts-destroy', [BlogPostController::class, 'destroy'])->name('admin.posts.destroy');
+
+    // ############################ [Blog Settings] ############################
+    Route::get('/blog-section', [BlogSectionController::class, 'edit'])->name('admin.blog.section.edit');
+    Route::post('/blog-section', [BlogSectionController::class, 'update'])->name('admin.blog.section.update');
+
+    // ############################ [SEO Settings] ############################
+    Route::get('/seo-settings', [SeoSettingController::class, 'edit'])->name('admin.seo.edit');
+    Route::post('/seo-settings', [SeoSettingController::class, 'update'])->name('admin.seo.update');
 });

@@ -14,11 +14,11 @@ class ProjectCategory extends Model
 
     public function scopeActive($query)
     {
-        return $query->where('is_active', true)->first();
+        return $query->where('is_active', true);
     }
 
     public function images()
     {
-        return $this->hasMany(ProjectImage::class , 'category_id')->where('is_active', true)->orderBy('sort_order');
+        return $this->hasMany(ProjectImage::class, 'category_id')->where('is_active', true)->orderBy('sort_order');
     }
 }

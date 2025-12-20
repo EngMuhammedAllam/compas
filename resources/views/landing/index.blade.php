@@ -75,11 +75,11 @@
                 <div class="animate_left xc gn gg jn/2 i">
                     <div>
                         <img src="{{ secure_asset('land/images/shape-05.svg')}}" alt="Shape" class="h -ud-left-5 x" />
-                        <img src="{{ secure_asset('land/images/About1.jpeg')}}" style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" />
-                        <img src="{{ secure_asset('land/images/About2.jpeg')}}" style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" />
+                        <img src="{{ $aboutSection->image1 ? asset('storage/' . $aboutSection->image1) : secure_asset('land/images/About1.jpeg') }}" style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" />
+                        <img src="{{ $aboutSection->image2 ? asset('storage/' . $aboutSection->image2) : secure_asset('land/images/About2.jpeg') }}" style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" />
                     </div>
                     <div>
-                        <img src="{{ secure_asset('land/images/About3.jpeg')}}" style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" />
+                        <img src="{{ $aboutSection->image3 ? asset('storage/' . $aboutSection->image3) : secure_asset('land/images/About3.jpeg') }}" style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" />
                         <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="bb" />
                     </div>
                 </div>
@@ -398,9 +398,10 @@
 
         <!-- Section Title Start -->
         <div
+            <div
             x-data="{
-            sectionTitle: 'أحدث المقالات والأخبار',
-            sectionTitleText: 'تابع أحدث المستجدات والتقنيات في عالم التبريد والتكييف. نشارككم نصائح وخبرات تساعدكم في الحفاظ على كفاءة أنظمتكم وتوفير الطاقة.'
+            sectionTitle: '{{ $blogSection->title ?? 'أحدث المقالات والأخبار' }}',
+            sectionTitleText: '{{ $blogSection->description ?? 'تابع أحدث المستجدات والتقنيات في عالم التبريد والتكييف. نشارككم نصائح وخبرات تساعدكم في الحفاظ على كفاءة أنظمتكم وتوفير الطاقة.' }}'
         }">
 
             <div class="animate_top bb ze rj ki xn vq">
