@@ -51,7 +51,12 @@ class LandingController extends Controller
             ->published()
             ->orderBy('published_at', 'desc')
             ->take(3)
+            ->take(3)
             ->get();
+
+        $blogSection = \App\Models\Blog\BlogSection::first();
+        $seo = \App\Models\SeoSetting::first();
+
         return view('landing.index', get_defined_vars());
     }
 
