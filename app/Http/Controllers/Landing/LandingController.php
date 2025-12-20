@@ -28,12 +28,12 @@ class LandingController extends Controller
     public function index()
     {
         // Cache static/semi-static data for 1 hour
-        $seo = cache()->remember('seo_settings', 3600, fn() => \App\Models\SeoSetting::first());
-        $contactSetting = cache()->remember('contact_settings', 3600, fn() => ContactSetting::first());
-        $heroSection = cache()->remember('hero_section', 3600, fn() => HeroSection::first());
-        $aboutSection = cache()->remember('about_section', 3600, fn() => AboutSection::with('points')->first());
-        $ctaSection = cache()->remember('cta_section', 3600, fn() => CtaSection::first());
-        $blogSection = cache()->remember('blog_section', 3600, fn() => \App\Models\Blog\BlogSection::first());
+        $seo = cache()->remember('seo_settings', 120, fn() => \App\Models\SeoSetting::first());
+        $contactSetting = cache()->remember('contact_settings', 60, fn() => ContactSetting::first());
+        $heroSection = HeroSection::first();
+        $aboutSection = AboutSection::with('points')->first();
+        $ctaSection = cache()->remember('cta_section', 60, fn() => CtaSection::first());
+        $blogSection = cache()->remember('blog_section', 60, fn() => \App\Models\Blog\BlogSection::first());
 
         // Frequently changing data - no cache
         $counters = Counter::take(4)->get();
@@ -46,7 +46,7 @@ class LandingController extends Controller
 
         // Project data
         $projectSection = ProjectSection::first();
-        $projectcategories = ProjectCategory::with('images')->active()->get();
+        $projectcategories = ProjectCategory::with('images')->get();
 
         // Testimonials
         $testimonialSection = SectionTestimonial::where('is_active', 1)->first();
@@ -55,7 +55,7 @@ class LandingController extends Controller
             : collect([]);
 
         // Blog posts - cache for 30 minutes
-        $posts = cache()->remember('homepage_blog_posts', 1800, function () {
+        $posts = cache()->remember('homepage_blog_posts', 60, function () {
             return BlogPost::with('category')
                 ->active()
                 ->published()
