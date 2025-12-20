@@ -36,6 +36,7 @@ class DatabaseSeeder extends Seeder
             CtaSeeder::class,
             ContactSettingSeeder::class,
             CounterSeeder::class,
+            CoolingSystemDataSeeder::class,
         ]);
     }
 }

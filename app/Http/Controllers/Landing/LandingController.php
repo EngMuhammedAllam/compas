@@ -27,35 +27,42 @@ class LandingController extends Controller
      */
     public function index()
     {
-        $heroSection = HeroSection::first();
-        $counters = Counter::take(4)->get();
-        $contactSetting = ContactSetting::first();
-        $aboutSection = AboutSection::with('points')->first();
-        $contactSetting = ContactSetting::first();
-        $aboutSection = AboutSection::with('points')->first();
-        $ctaSection = CtaSection::first();
-        $clients = \App\Models\Client::latest()->get();
+        // Cache static/semi-static data for 1 hour
+        $seo = cache()->remember('seo_settings', 3600, fn() => \App\Models\SeoSetting::first());
+        $contactSetting = cache()->remember('contact_settings', 3600, fn() => ContactSetting::first());
+        $heroSection = cache()->remember('hero_section', 3600, fn() => HeroSection::first());
+        $aboutSection = cache()->remember('about_section', 3600, fn() => AboutSection::with('points')->first());
+        $ctaSection = cache()->remember('cta_section', 3600, fn() => CtaSection::first());
+        $blogSection = cache()->remember('blog_section', 3600, fn() => \App\Models\Blog\BlogSection::first());
 
+        // Frequently changing data - no cache
+        $counters = Counter::take(4)->get();
+        $clients = \App\Models\Client::latest()->get();
         $features = Feature::get();
-        $sectionServices = ServiceSection::first();
-        $projectSection  = ProjectSection::first();
-        $projectcategories   = ProjectCategory::with('images')->active()->get();
+
+        // Service data
         $serviceSection = ServiceSection::active();
-        $services = $serviceSection->services()->active()->ordered()->get();
+        $services = $serviceSection ? $serviceSection->services()->active()->ordered()->get() : collect([]);
+
+        // Project data
+        $projectSection = ProjectSection::first();
+        $projectcategories = ProjectCategory::with('images')->active()->get();
+
+        // Testimonials
         $testimonialSection = SectionTestimonial::where('is_active', 1)->first();
         $testimonials = $testimonialSection
             ? $testimonialSection->testimonials()->active()->orderBy('sort_order', 'asc')->get()
             : collect([]);
-        $posts = BlogPost::with('category')
-            ->active()
-            ->published()
-            ->orderBy('published_at', 'desc')
-            ->take(3)
-            ->take(3)
-            ->get();
 
-        $blogSection = \App\Models\Blog\BlogSection::first();
-        $seo = \App\Models\SeoSetting::first();
+        // Blog posts - cache for 30 minutes
+        $posts = cache()->remember('homepage_blog_posts', 1800, function () {
+            return BlogPost::with('category')
+                ->active()
+                ->published()
+                ->orderBy('published_at', 'desc')
+                ->take(3)
+                ->get();
+        });
 
         return view('landing.index', get_defined_vars());
     }
@@ -75,10 +82,10 @@ class LandingController extends Controller
     {
         $post = BlogPost::with('category')->findOrFail($id);
 
-        // زيادة عدد المشاهدات
+        // Increment views
         $post->increment('views');
 
-        // مقالات ذات صلة
+        // Related posts
         $relatedPosts = BlogPost::where('blog_category_id', $post->blog_category_id)
             ->where('id', '!=', $post->id)
             ->active()
@@ -86,10 +93,13 @@ class LandingController extends Controller
             ->take(3)
             ->get();
 
-        // الفئات
-        $categories = BlogCategory::active()->get();
+        // Categories
+        $categories = cache()->remember('blog_categories', 1800, fn() => BlogCategory::active()->get());
 
-        return view('landing.blogs.single_blog', compact('post', 'relatedPosts', 'categories'));
+        // SEO data
+        $seo = cache()->remember('seo_settings', 3600, fn() => \App\Models\SeoSetting::first());
+
+        return view('landing.blogs.single_blog', compact('post', 'relatedPosts', 'categories', 'seo'));
     }
 
     public function showBlogCategory($id)
@@ -100,8 +110,11 @@ class LandingController extends Controller
             ->published()
             ->orderBy('published_at', 'desc')
             ->paginate(10);
-        $categories = BlogCategory::active()->get();
-        return view('landing.blogs.category', compact('posts', 'category', 'categories'));
+
+        $categories = cache()->remember('blog_categories', 1800, fn() => BlogCategory::active()->get());
+        $seo = cache()->remember('seo_settings', 3600, fn() => \App\Models\SeoSetting::first());
+
+        return view('landing.blogs.category', compact('posts', 'category', 'categories', 'seo'));
     }
 
 
