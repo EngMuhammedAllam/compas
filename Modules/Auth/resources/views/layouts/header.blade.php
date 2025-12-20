@@ -35,15 +35,6 @@
                 :class="{ 'mk': page === 'blog-grid' || page === 'blog-single' || page === 'signin' || page === 'signup' || page === '404' }">
                 من نحن
               </a>
-
-              <!-- Dropdown Start -->
-              <!-- <ul class="a" :class="{ 'tc': dropdown }">
-                <li><a href="blog-grid.html" class="xl" :class="{ 'mk': page === 'blog-grid' }">ماسة المدونة</a></li>
-                <li><a href="{{ route('single.blog')}}" class="xl" :class="{ 'mk': page === 'blog-single' }">ماسة المدونة المفردة</a></li>
-                <li><a href="signin.html" class="xl" :class="{ 'mk': page === 'signin' }">تسجيل الدخول </a></li>
-                <li><a href="signup.html" class="xl" :class="{ 'mk': page === 'signup' }">إنشاء حساب</a></li>
-                <li><a href="404.html" class="xl" :class="{ 'mk': page === '404' }">404</a></li>
-              </ul> -->
               <!-- Dropdown End -->
             </li>
             <li><a href="{{ route('landing') }}" class="xl mk">الرئيسية</a></li>

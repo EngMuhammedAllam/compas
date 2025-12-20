@@ -35,7 +35,7 @@ Route::get('/robots.txt', [RobotsTxtController::class, 'index']);
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // ############################## [[== Admin ==]] Routes ################################### //
-Route::group([], function () {
+Route::group(['middleware' => ['auth']], function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     // ############################ [Hero] Section Route ############################

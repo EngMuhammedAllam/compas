@@ -11,5 +11,5 @@ use App\Http\Controllers\Dashboard\HeroSectionController;
         Route::get('/login-form', [AuthController::class, 'loginForm'])->name('loginform');
         Route::post('/login'    , [AuthController::class, 'login'])->name('login');
         Route::post('/logout'   , [AuthController::class, 'logout'])->name('logout');
-    });
+    })->middleware('guest');
 

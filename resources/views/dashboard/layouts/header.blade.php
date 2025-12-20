@@ -243,8 +243,8 @@
                                         height="32" class="rounded-circle">
                                 </div>
                                 <div class="d-sm-block d-none">
-                                    <p class="fw-semibold mb-0 lh-1 text-capitalize">badr jibali</p>
-                                    <span class="op-7 fw-normal d-block fs-11 text-capitalize">super admin</span>
+                                    <p class="fw-semibold mb-0 lh-1 text-capitalize">{{ Auth::user()->name ?? 'Admin' }}</p>
+                                    <span class="op-7 fw-normal d-block fs-11 text-capitalize">{{ Auth::user()->role ?? 'Admin' }}</span>
                                 </div>
                             </div>
                         </a>
@@ -253,18 +253,7 @@
                             aria-labelledby="mainHeaderProfile">
                             <li><a class="dropdown-item d-flex" href="profile.html"><i
                                         class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                            <li><a class="dropdown-item d-flex" href="mail.html"><i
-                                        class="ti ti-inbox fs-18 me-2 op-7"></i>Inbox <span
-                                        class="badge bg-success-transparent ms-auto">25</span></a></li>
-                            <li><a class="dropdown-item d-flex border-block-end" href="to-do-list.html"><i
-                                        class="ti ti-clipboard-check fs-18 me-2 op-7"></i>Task Manager</a></li>
-                            <li><a class="dropdown-item d-flex" href="mail-settings.html"><i
-                                        class="ti ti-adjustments-horizontal fs-18 me-2 op-7"></i>Settings</a></li>
-                            <li><a class="dropdown-item d-flex border-block-end" href="javascript:void(0);"><i
-                                        class="ti ti-wallet fs-18 me-2 op-7"></i>Bal: $7,12,950</a></li>
-                            <li><a class="dropdown-item d-flex" href="chat.html"><i
-                                        class="ti ti-headset fs-18 me-2 op-7"></i>Support</a></li>
-                            <li><a class="dropdown-item d-flex" href="sign-in-cover.html"><i
+                            <li><a class="dropdown-item d-flex" href="{{ route('logout') }}"><i
                                         class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a></li>
                         </ul>
                     </div>
