@@ -36,26 +36,39 @@ class LandingController extends Controller
         $blogSection = cache()->remember('blog_section', 60, fn() => \App\Models\Blog\BlogSection::first());
 
         // Frequently changing data - no cache
-        $counters = Counter::take(4)->get();
-        $clients = \App\Models\Client::latest()->get();
-        $features = Feature::get();
+        // Frequently changing data - cache for 10 minutes
+        $counters = cache()->remember('landing_counters', 600, fn() => Counter::take(4)->get());
+        $clients = cache()->remember('landing_clients', 600, fn() => \App\Models\Client::latest()->get());
+        $features = cache()->remember('landing_features', 3600, fn() => Feature::get());
 
-        // Service data
-        $serviceSection = ServiceSection::active();
-        $services = $serviceSection ? $serviceSection->services()->active()->ordered()->get() : collect([]);
+        // Service data - cache for 1 hour
+        $services = cache()->remember('landing_services', 3600, function () {
+            $serviceSection = ServiceSection::active();
+            return $serviceSection ? $serviceSection->services()->active()->ordered()->get() : collect([]);
+        });
 
-        // Project data
-        $projectSection = ProjectSection::first();
-        $projectcategories = ProjectCategory::with('images')->get();
+        // Pass $serviceSection separately if needed by view, but usually view iterates $services. 
+        // Logic preservation: The original code fetched $serviceSection then got services. 
+        // We need to make sure $serviceSection is available if the view uses it.
+        // Re-reading original code: $serviceSection was assigned.
+        $serviceSection = cache()->remember('landing_service_section', 3600, fn() => ServiceSection::active());
 
-        // Testimonials
-        $testimonialSection = SectionTestimonial::where('is_active', 1)->first();
-        $testimonials = $testimonialSection
-            ? $testimonialSection->testimonials()->active()->orderBy('sort_order', 'asc')->get()
-            : collect([]);
+        // Project data - cache for 1 hour
+        $projectSection = cache()->remember('landing_project_section', 3600, fn() => ProjectSection::first());
+        $projectcategories = cache()->remember('landing_project_categories', 3600, fn() => ProjectCategory::with('images')->get());
+
+        // Testimonials - cache for 1 hour
+        $testimonials = cache()->remember('landing_testimonials', 3600, function () {
+            $testimonialSection = SectionTestimonial::where('is_active', 1)->first();
+            return $testimonialSection
+                ? $testimonialSection->testimonials()->active()->orderBy('sort_order', 'asc')->get()
+                : collect([]);
+        });
+        // Also cache the section itself if used
+        $testimonialSection = cache()->remember('landing_testimonial_section', 3600, fn() => SectionTestimonial::where('is_active', 1)->first());
 
         // Blog posts - cache for 30 minutes
-        $posts = cache()->remember('homepage_blog_posts', 60, function () {
+        $posts = cache()->remember('homepage_blog_posts', 1800, function () {
             return BlogPost::with('category')
                 ->active()
                 ->published()
