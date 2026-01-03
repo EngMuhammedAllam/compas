@@ -3,8 +3,8 @@
     <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
       <div class="vd to/4 tc wf yf">
         <a href="{{ route('landing') }}">
-          <img class="om" src="{{ secure_asset('land/images/logo-light.png')}}" alt="Logo Light" style ="width: 75px;"/>
-          <img class="xc nm" src="{{ secure_asset('land/images/logo-dark.png')}}" alt="Logo Dark" style ="width: 75px;"/>
+          <img class="om" src="{{ secure_asset('land/images/logo-light.png')}}" alt="Logo Light" style="width: 75px;" />
+          <img class="xc nm" src="{{ secure_asset('land/images/logo-dark.png')}}" alt="Logo Dark" style="width: 75px;" />
         </a>
 
         <!-- Hamburger Toggle BTN -->
@@ -56,8 +56,13 @@
             </label>
           </div>
 
+          @if (Auth::check())
+          <a href="{{ route('dashboard') }}" :class="{ 'nk yl' : page === 'home', 'ok' : page === 'home' && stickyMenu }"
+            class="ek pk xl">{{ Auth::user()->name }}</a>
+          @else
           <a href="{{ route('loginform') }}" :class="{ 'nk yl' : page === 'home', 'ok' : page === 'home' && stickyMenu }"
             class="ek pk xl">تسجيل الدخول</a>
+          @endif
         </div>
       </div>
     </div>

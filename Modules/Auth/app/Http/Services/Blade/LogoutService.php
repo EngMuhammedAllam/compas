@@ -10,19 +10,21 @@ class LogoutService
 
     private $repository;
 
-    public function __construct(AuthRepository $repository) {
+    public function __construct(AuthRepository $repository)
+    {
         $this->repository = $repository;
     }
 
-    public function __invoke($request)
+    public function __invoke()
     {
-        $user = $request->user();
+        $user = Auth::user();
 
         if ($user) {
             Auth::logout();
-            return redirect()->route('login')->with('success', 'Logged out successfully.');
+            session()->invalidate();
+            session()->regenerateToken();
+            session()->flush();
+            return redirect()->route('loginform')->with('success', 'Logged out successfully.');
         }
     }
-
-
 }

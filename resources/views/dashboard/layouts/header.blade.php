@@ -253,7 +253,7 @@
                             aria-labelledby="mainHeaderProfile">
                             <li><a class="dropdown-item d-flex" href="profile.html"><i
                                         class="ti ti-user-circle fs-18 me-2 op-7"></i>Profile</a></li>
-                            <li><a class="dropdown-item d-flex" href="{{ route('logout') }}"><i
+                            <li><a class="dropdown-item d-flex" href="{{ route('dashboard.logout') }}"><i
                                         class="ti ti-logout fs-18 me-2 op-7"></i>Log Out</a></li>
                         </ul>
                     </div>

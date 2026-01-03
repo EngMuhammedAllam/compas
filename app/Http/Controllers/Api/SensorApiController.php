@@ -54,7 +54,7 @@ class SensorApiController extends Controller
             ]);
 
             // Notify admins
-            $admins = User::all(); // In a real app, filter for relevant admins
+            $admins = User::where('is_admin', true)->get(); // In a real app, filter for relevant admins
             Notification::send($admins, new TemperatureThresholdExceeded($alert));
         }
 

@@ -7,9 +7,11 @@ use App\Http\Controllers\Dashboard\HeroSectionController;
 
 
 // ############################## Auth Routes ################################### //
-    Route::prefix('auth')->group(function () {
-        Route::get('/login-form', [AuthController::class, 'loginForm'])->name('loginform');
-        Route::post('/login'    , [AuthController::class, 'login'])->name('login');
-        Route::post('/logout'   , [AuthController::class, 'logout'])->name('logout');
-    })->middleware('guest');
+Route::prefix('auth')->group(function () {
+    Route::get('/login-form', [AuthController::class, 'loginForm'])->name('loginform');
+    Route::post('/login', [AuthController::class, 'login'])->name('login');
+})->middleware('guest');
 
+Route::prefix('auth')->group(function () {
+    Route::get('/dashboard/logout', [AuthController::class, 'logout'])->name('dashboard.logout');
+});

@@ -23,12 +23,10 @@ class AuthController extends Controller
         LogoutService $logoutservice,
         RegisterService $registerservice
 
-    )
-    {
+    ) {
         $this->loginservice = $loginservice;
         $this->logoutservice = $logoutservice;
         $this->registerservice = $registerservice;
-        
     }
 
     public function register(RegisterRequest $request)
@@ -46,9 +44,8 @@ class AuthController extends Controller
         return $this->loginservice->__invoke($request);
     }
 
-    public function logout(Request $request)
+    public function logout()
     {
-        return $this->logoutservice->__invoke($request);
+        return $this->logoutservice->__invoke();
     }
-
 }

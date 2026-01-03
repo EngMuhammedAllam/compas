@@ -80,7 +80,7 @@ class LandingController extends Controller
      */
     public function showSingleBlog($id)
     {
-        $post = BlogPost::with('category')->findOrFail($id);
+        $post = BlogPost::with('category')->active()->published()->findOrFail($id);
 
         // Increment views
         $post->increment('views');
