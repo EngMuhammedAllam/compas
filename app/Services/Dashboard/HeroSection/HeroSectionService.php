@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\HeroSection;
 
-use App\Models\HeroSection;
+use App\Models\Hero\HeroSection;
 use App\Http\Traits\FileTrait;
 use Illuminate\Http\UploadedFile;
 

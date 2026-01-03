@@ -2,21 +2,22 @@
 
 namespace App\Services\Landing;
 
-use App\Models\AboutSection;
 use App\Models\Blog\BlogPost;
+use App\Models\Client\Client;
+use App\Models\Cta\CtaSection;
+use App\Models\Counter\Counter;
+use App\Models\Feature\Feature;
 use App\Models\Blog\BlogSection;
-use App\Models\Client;
-use App\Models\ContactSetting;
-use App\Models\Counter;
-use App\Models\CtaSection;
-use App\Models\Feature;
-use App\Models\HeroSection;
-use App\Models\Projects\ProjectCategory;
-use App\Models\Projects\ProjectSection;
-use App\Models\SeoSetting;
-use App\Models\Service\ServiceSection;
-use App\Models\Testimonials\SectionTestimonial;
+use App\Models\Hero\HeroSection;
+use App\Models\About\AboutSection;
+use App\Models\Setting\SeoSetting;
 use Illuminate\Support\Collection;
+use App\Models\Service\ServiceSection;
+use App\Models\Setting\ContactSetting;
+use App\Models\Projects\ProjectSection;
+use App\Models\Projects\ProjectCategory;
+use App\Models\Testimonials\SectionTestimonial;
+
 
 class LandingPageService
 {

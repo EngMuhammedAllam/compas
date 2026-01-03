@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Contact;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -25,5 +25,4 @@ class Contact extends Model
             ->orWhere('email', 'like', '%' . $search . '%')
             ->orWhere('message', 'like', '%' . $search . '%');
     }
-
 }

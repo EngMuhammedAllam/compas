@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Setting;
 
-use App\Models\SeoSetting;
+use App\Models\Setting\SeoSetting;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

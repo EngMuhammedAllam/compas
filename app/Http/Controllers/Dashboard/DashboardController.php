@@ -9,12 +9,12 @@ use App\Models\Blog\BlogCategory;
 use App\Models\Projects\ProjectCategory;
 use App\Models\Service\Service;
 use App\Models\Testimonials\Testimonial;
-use App\Models\Contact;
-use App\Models\Client;
-use App\Models\Feature;
-use App\Models\Counter;
-use App\Models\CoolingSensor;
-use App\Models\TemperatureAlert;
+use App\Models\Contact\Contact;
+use App\Models\Client\Client;
+use App\Models\Feature\Feature;
+use App\Models\Counter\Counter;
+use App\Models\Sensor\CoolingSensor;
+use App\Models\Sensor\TemperatureAlert;
 
 class DashboardController extends Controller
 {

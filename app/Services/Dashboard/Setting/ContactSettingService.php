@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Setting;
 
-use App\Models\ContactSetting;
+use App\Models\Setting\ContactSetting;
 
 class ContactSettingService
 {

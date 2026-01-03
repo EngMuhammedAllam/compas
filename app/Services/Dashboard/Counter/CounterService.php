@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Counter;
 
-use App\Models\Counter;
+use App\Models\Counter\Counter;
 
 class CounterService
 {

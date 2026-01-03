@@ -2,10 +2,10 @@
 
 namespace App\Services\Sensor;
 
-use App\Models\CoolingSensor;
-use App\Models\TemperatureReading;
-use App\Models\TemperatureAlert;
-use App\Models\User;
+use App\Models\Sensor\CoolingSensor;
+use App\Models\Sensor\TemperatureReading;
+use App\Models\Sensor\TemperatureAlert;
+use App\Models\Auth\User;
 use App\Notifications\TemperatureThresholdExceeded;
 use Illuminate\Support\Facades\Notification;
 

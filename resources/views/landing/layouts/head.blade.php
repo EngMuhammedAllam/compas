@@ -71,16 +71,16 @@
       'description' => $seo->meta_description ?? '',
       'contactPoint' => [
         '@type' => 'ContactPoint',
-        'telephone' => optional(\App\Models\ContactSetting::first())->phone,
+        'telephone' => optional(\App\Models\Setting\ContactSetting::first())->phone,
         'contactType' => 'customer service',
         'areaServed' => 'EG',
         'availableLanguage' => ['Arabic', 'English']
       ],
       'sameAs' => array_filter([
-        optional(\App\Models\ContactSetting::first())->facebook,
-        optional(\App\Models\ContactSetting::first())->twitter,
-        optional(\App\Models\ContactSetting::first())->linkedin,
-        optional(\App\Models\ContactSetting::first())->instagram,
+        optional(\App\Models\Setting\ContactSetting::first())->facebook,
+        optional(\App\Models\Setting\ContactSetting::first())->twitter,
+        optional(\App\Models\Setting\ContactSetting::first())->linkedin,
+        optional(\App\Models\Setting\ContactSetting::first())->instagram,
       ])
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
   </script>

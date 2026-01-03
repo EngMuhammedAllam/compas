@@ -2,8 +2,8 @@
 
 namespace App\Services\Dashboard\About;
 
-use App\Models\AboutPoint;
-use App\Models\AboutSection;
+use App\Models\About\AboutPoint;
+use App\Models\About\AboutSection;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

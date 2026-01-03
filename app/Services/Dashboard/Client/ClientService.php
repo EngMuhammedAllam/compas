@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Client;
 
-use App\Models\Client;
+use App\Models\Client\Client;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

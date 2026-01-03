@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\AboutSection;
+use App\Models\About\AboutSection;
 use App\Repositories\Interfaces\AboutRepositoryInterface;
 
 class AboutRepository extends BaseRepository implements AboutRepositoryInterface

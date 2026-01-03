@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Feature;
 
-use App\Models\Feature;
+use App\Models\Feature\Feature;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Facades\Storage;
 

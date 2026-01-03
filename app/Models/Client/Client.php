@@ -1,10 +1,11 @@
 <?php
 
-namespace App\Models;
+namespace App\Models\Client;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Counter extends Model
+class Client extends Model
 {
     protected $guarded = [];
+    //
 }

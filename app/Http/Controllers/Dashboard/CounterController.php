@@ -5,7 +5,7 @@ namespace App\Http\Controllers\Dashboard;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Counter\StoreCounterRequest;
 use App\Http\Requests\Dashboard\Counter\UpdateCounterRequest;
-use App\Models\Counter;
+use App\Models\Counter\Counter;
 use App\Services\Dashboard\Counter\CounterService;
 use Illuminate\Http\Request;
 

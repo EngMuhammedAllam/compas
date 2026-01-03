@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\HeroRepositoryInterface;
-use App\Models\HeroSection;
+use App\Models\Hero\HeroSection;
 
 class HeroService
 {

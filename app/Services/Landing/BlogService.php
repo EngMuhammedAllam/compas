@@ -4,7 +4,7 @@ namespace App\Services\Landing;
 
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogPost;
-use App\Models\SeoSetting;
+use App\Models\Setting\SeoSetting;
 
 class BlogService
 {

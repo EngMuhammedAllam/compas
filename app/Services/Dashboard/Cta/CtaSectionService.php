@@ -2,7 +2,7 @@
 
 namespace App\Services\Dashboard\Cta;
 
-use App\Models\CtaSection;
+use App\Models\Cta\CtaSection;
 
 class CtaSectionService
 {

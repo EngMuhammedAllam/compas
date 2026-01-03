@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\CounterRepositoryInterface;
-use App\Models\Counter;
+use App\Models\Counter\Counter;
 
 class CounterService
 {

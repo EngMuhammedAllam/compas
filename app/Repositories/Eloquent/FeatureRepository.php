@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Feature;
+use App\Models\Feature\Feature;
 use App\Repositories\Interfaces\FeatureRepositoryInterface;
 
 class FeatureRepository extends BaseRepository implements FeatureRepositoryInterface
