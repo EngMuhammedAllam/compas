@@ -2,17 +2,26 @@
 
 namespace App\Http\Controllers\Dashboard\Blog;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Blog\StoreBlogPostRequest;
+use App\Http\Requests\Dashboard\Blog\UpdateBlogPostRequest;
 use App\Models\Blog\BlogPost;
 use App\Models\Blog\BlogCategory;
-
+use App\Services\Dashboard\Blog\BlogPostService;
+use Illuminate\Http\Request;
 
 class BlogPostController extends Controller
 {
+    protected $blogPostService;
+
+    public function __construct(BlogPostService $blogPostService)
+    {
+        $this->blogPostService = $blogPostService;
+    }
+
     public function index()
     {
-        $posts = BlogPost::with('category')->latest()->paginate(10);
+        $posts = $this->blogPostService->getAllPosts();
         return view('dashboard.blog.posts.index', compact('posts'));
     }
 
@@ -22,24 +31,13 @@ class BlogPostController extends Controller
         return view('dashboard.blog.posts.create', compact('categories'));
     }
 
-    public function store(Request $request)
+    public function store(StoreBlogPostRequest $request)
     {
-        $data = $request->validate([
-            'title' => 'required',
-            'excerpt' => 'nullable',
-            'content' => 'required',
-            'author' => 'nullable',
-            'published_at' => 'nullable|date',
-            'image' => 'nullable|image',
-            'blog_category_id' => 'required|exists:blog_categories,id',
-            'is_active' => 'boolean',
-        ]);
+        $this->blogPostService->createPost(
+            $request->validated(),
+            $request->file('image')
+        );
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('blog', 'public');
-        }
-
-        BlogPost::create($data);
         return redirect()->route('admin.posts.index')->with('success', 'تم إضافة المقال بنجاح');
     }
 
@@ -50,32 +48,23 @@ class BlogPostController extends Controller
         return view('dashboard.blog.posts.edit', compact('post', 'categories'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateBlogPostRequest $request)
     {
         $post = BlogPost::findOrFail($request->id);
-        $data = $request->validate([
-            'title' => 'required',
-            'excerpt' => 'nullable',
-            'content' => 'required',
-            'author' => 'nullable',
-            'published_at' => 'nullable|date',
-            'image' => 'nullable|image',
-            'blog_category_id' => 'required|exists:blog_categories,id',
-            'is_active' => 'boolean',
-        ]);
 
-        if ($request->hasFile('image')) {
-            $data['image'] = $request->file('image')->store('blog', 'public');
-        }
+        $this->blogPostService->updatePost(
+            $post,
+            $request->validated(),
+            $request->file('image')
+        );
 
-        $post->update($data);
         return redirect()->route('admin.posts.index')->with('success', 'تم تعديل المقال بنجاح');
     }
 
     public function destroy(Request $request)
     {
         $post = BlogPost::findOrFail($request->id);
-        $post->delete();
+        $this->blogPostService->deletePost($post);
         return redirect()->route('admin.posts.index')->with('success', 'تم حذف المقال');
     }
 }

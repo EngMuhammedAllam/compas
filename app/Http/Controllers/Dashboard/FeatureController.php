@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Feature;
-use App\Http\Traits\FileTrait;
-use App\Http\Requests\FeatureRequest;
+use App\Http\Requests\Dashboard\Feature\StoreFeatureRequest;
+use App\Http\Requests\Dashboard\Feature\UpdateFeatureRequest;
+use App\Services\Dashboard\Feature\FeatureService;
+use Illuminate\Http\Request;
 
 class FeatureController extends Controller
 {
-    use FileTrait;
+    protected $featureService;
+
+    public function __construct(FeatureService $featureService)
+    {
+        $this->featureService = $featureService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $features = Feature::all();
+        $features = $this->featureService->getAllFeatures();
         return view('dashboard.features.index', get_defined_vars());
     }
 
@@ -31,22 +37,16 @@ class FeatureController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(FeatureRequest $request)
+    public function store(StoreFeatureRequest $request)
     {
-        $validated = $request->validated();
-
-        if($request->hasFile('image')) {
-            $validated['image'] = $this->uploadFile($request->file('image'), 'features');
-        }
-
-        $feature = Feature::create($validated);
+        $this->featureService->createFeature($request->validated(), $request->file('image'));
         return redirect()->route('features.index')->with('success', 'تم إضافة الميزة بنجاح');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Feature $feature)
+    public function show($id)
     {
         //
     }
@@ -56,29 +56,17 @@ class FeatureController extends Controller
      */
     public function edit(Request $request)
     {
-        $feature = Feature::findOrFail($request->id);
+        $feature = $this->featureService->getFeatureById($request->id);
         return view('dashboard.features.edit', get_defined_vars());
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, $id)
+    public function update(UpdateFeatureRequest $request, $id)
     {
-        $validated = $request->validate([
-            'title' => 'required|min:3|max:100',
-            'description' => 'required|min:10|max:1000',
-            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,svg,webp,ico,bmp|max:2048',
-        ]);
-        $feature = Feature::findOrFail($id);
-        if($request->hasFile('image')) {
-            $image = $this->deleteFile($feature['image'], 'public');
-            $validated['image'] = $this->updateFile($request->file('image'), $feature->image, 'features');
-        }
-        $feature->update($validated);
+        $this->featureService->updateFeature($id, $request->validated(), $request->file('image'));
         return redirect()->route('features.index')->with('success', 'تم تعديل الميزة بنجاح');
-
-        
     }
 
     /**
@@ -86,9 +74,7 @@ class FeatureController extends Controller
      */
     public function destroy(Request $request)
     {
-        $feature = Feature::findOrFail($request->id);
-        $this->deleteFile($feature['image'], 'public');
-        $feature->delete();
-        return redirect()->route('features.index')->with('success', 'تم حذف الميزة بنجاح');   
+        $this->featureService->deleteFeature($request->id);
+        return redirect()->route('features.index')->with('success', 'تم حذف الميزة بنجاح');
     }
 }

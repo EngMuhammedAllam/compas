@@ -2,22 +2,24 @@
 
 namespace App\Http\Controllers\Dashboard\Projects;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Project;
-use App\Models\Projects\ProjectCategory;
-use App\Models\Projects\ProjectSection;
+use App\Services\Dashboard\Project\ProjectService;
 
 class ProjectController extends Controller
 {
+    protected $projectService;
+
+    public function __construct(ProjectService $projectService)
+    {
+        $this->projectService = $projectService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $section = ProjectSection::where('is_active', true)->first();
-        $categories = ProjectCategory::with('images')->get();
-        return view('dashboard.projects.index', get_defined_vars());
+        $data = $this->projectService->getProjectDashboardData();
+        return view('dashboard.projects.index', $data);
     }
-
 }

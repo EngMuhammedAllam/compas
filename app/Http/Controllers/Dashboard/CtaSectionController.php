@@ -3,27 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\CtaSection;
-use Illuminate\Http\Request;
+use App\Http\Requests\Dashboard\Cta\UpdateCtaSectionRequest;
+use App\Services\Dashboard\Cta\CtaSectionService;
 
 class CtaSectionController extends Controller
 {
+    protected $ctaService;
+
+    public function __construct(CtaSectionService $ctaService)
+    {
+        $this->ctaService = $ctaService;
+    }
+
     public function edit()
     {
-        $cta = CtaSection::firstOrNew();
+        $cta = $this->ctaService->getCtaSection();
         return view('dashboard.cta.edit', compact('cta'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateCtaSectionRequest $request)
     {
-        $cta = CtaSection::firstOrNew();
-
-        $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-        ]);
-
-        $cta->fill($data)->save();
+        $this->ctaService->updateCtaSection($request->validated());
 
         return redirect()->back()->with('success', 'CTA section updated successfully.');
     }

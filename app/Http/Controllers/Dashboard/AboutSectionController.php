@@ -3,67 +3,52 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\AboutSection;
-use App\Models\AboutPoint;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\Dashboard\About\StoreAboutPointRequest;
+use App\Http\Requests\Dashboard\About\UpdateAboutSectionRequest;
+use App\Services\Dashboard\About\AboutSectionService;
 
 class AboutSectionController extends Controller
 {
+    protected $aboutService;
+
+    public function __construct(AboutSectionService $aboutService)
+    {
+        $this->aboutService = $aboutService;
+    }
+
     public function edit()
     {
-        $about = AboutSection::firstOrNew();
-        $points = AboutPoint::where('about_section_id', $about->id)->get();
+        $about = $this->aboutService->getAboutSection();
+        $points = $this->aboutService->getAboutPoints($about->id);
         return view('dashboard.about.edit', compact('about', 'points'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateAboutSectionRequest $request)
     {
-        $about = AboutSection::firstOrNew();
-
-        $data = $request->validate([
-            'title' => 'required|string',
-            'description' => 'required|string',
-            'video_url' => 'nullable|url',
-            'image1' => 'nullable|image',
-            'image2' => 'nullable|image',
-            'image3' => 'nullable|image',
-        ]);
-
-        if ($request->hasFile('image1')) {
-            if ($about->image1) Storage::disk('public')->delete($about->image1);
-            $data['image1'] = $request->file('image1')->store('about', 'public');
-        }
-        if ($request->hasFile('image2')) {
-            if ($about->image2) Storage::disk('public')->delete($about->image2);
-            $data['image2'] = $request->file('image2')->store('about', 'public');
-        }
-        if ($request->hasFile('image3')) {
-            if ($about->image3) Storage::disk('public')->delete($about->image3);
-            $data['image3'] = $request->file('image3')->store('about', 'public');
-        }
-
-        $about->fill($data)->save();
+        $this->aboutService->updateAboutSection(
+            $request->validated(),
+            $request->file('image1'),
+            $request->file('image2'),
+            $request->file('image3')
+        );
 
         return redirect()->back()->with('success', 'About section updated successfully.');
     }
 
-    public function storePoint(Request $request)
+    public function storePoint(StoreAboutPointRequest $request)
     {
-        $request->validate(['content' => 'required|string']);
-        $about = AboutSection::first();
-        if (!$about) return redirect()->back()->with('error', 'Please save about section first');
+        $point = $this->aboutService->createPoint($request->validated());
 
-        AboutPoint::create([
-            'about_section_id' => $about->id,
-            'content' => $request->content
-        ]);
+        if (!$point) {
+            return redirect()->back()->with('error', 'Please save about section first');
+        }
+
         return redirect()->back()->with('success', 'Point added successfully');
     }
 
     public function destroyPoint($id)
     {
-        AboutPoint::findOrFail($id)->delete();
+        $this->aboutService->deletePoint($id);
         return redirect()->back()->with('success', 'Point deleted successfully');
     }
 }

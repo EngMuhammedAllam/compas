@@ -3,17 +3,23 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\Client;
+use App\Http\Requests\Dashboard\Client\StoreClientRequest;
+use App\Http\Requests\Dashboard\Client\UpdateClientRequest;
+use App\Services\Dashboard\Client\ClientService;
 use Illuminate\Http\Request;
-use App\Http\Traits\FileTrait;
 
 class ClientController extends Controller
 {
-    use FileTrait;
+    protected $clientService;
+
+    public function __construct(ClientService $clientService)
+    {
+        $this->clientService = $clientService;
+    }
 
     public function index()
     {
-        $clients = Client::latest()->get();
+        $clients = $this->clientService->getAllClients();
         return view('dashboard.clients.index', compact('clients'));
     }
 
@@ -22,54 +28,29 @@ class ClientController extends Controller
         return view('dashboard.clients.create');
     }
 
-    public function store(Request $request)
+    public function store(StoreClientRequest $request)
     {
-        $data = $request->validate([
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'nullable|string|max:255',
-            'link' => 'nullable|url|max:255',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $data['image'] = $this->uploadFile($request->file('image'), 'clients');
-        }
-
-        Client::create($data);
+        $this->clientService->createClient($request->validated(), $request->file('image'));
 
         return redirect()->route('admin.clients.index')->with('success', 'Client created successfully.');
     }
 
     public function edit(Request $request)
     {
-        $client = Client::findOrFail($request->id);
+        $client = $this->clientService->getClientById($request->id);
         return view('dashboard.clients.edit', compact('client'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateClientRequest $request)
     {
-        $client = Client::findOrFail($request->id);
-
-        $data = $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
-            'name' => 'nullable|string|max:255',
-            'link' => 'nullable|url|max:255',
-        ]);
-
-        if ($request->hasFile('image')) {
-            $this->deleteFile($client->image);
-            $data['image'] = $this->updateFile($request->file('image'), $client->image, 'clients');
-        }
-
-        $client->update($data);
+        $this->clientService->updateClient($request->id, $request->validated(), $request->file('image'));
 
         return redirect()->route('admin.clients.index')->with('success', 'Client updated successfully.');
     }
 
     public function destroy(Request $request)
     {
-        $client = Client::findOrFail($request->id);
-        $this->deleteFile($client->image);
-        $client->delete();
+        $this->clientService->deleteClient($request->id);
 
         return redirect()->route('admin.clients.index')->with('success', 'Client deleted successfully.');
     }

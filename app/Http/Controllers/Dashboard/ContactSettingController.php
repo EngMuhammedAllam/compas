@@ -3,35 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
-use App\Models\ContactSetting;
-use Illuminate\Http\Request;
+use App\Http\Requests\Dashboard\Setting\UpdateContactSettingRequest;
+use App\Services\Dashboard\Setting\ContactSettingService;
 
 class ContactSettingController extends Controller
 {
+    protected $contactService;
+
+    public function __construct(ContactSettingService $contactService)
+    {
+        $this->contactService = $contactService;
+    }
+
     public function edit()
     {
-        $setting = ContactSetting::firstOrCreate([]);
+        $setting = $this->contactService->getContactSetting();
         return view('dashboard.contact_settings.edit', compact('setting'));
     }
 
-    public function update(Request $request)
+    public function update(UpdateContactSettingRequest $request)
     {
-        $setting = ContactSetting::firstOrCreate([]);
-
-        $data = $request->validate([
-            'title' => 'nullable|string|max:255',
-            'description' => 'nullable|string',
-            'email' => 'nullable|email',
-            'phone' => 'nullable|string',
-            'address' => 'nullable|string',
-            'map_url' => 'nullable|string',
-            'facebook' => 'nullable|string',
-            'twitter' => 'nullable|string',
-            'instagram' => 'nullable|string',
-            'linkedin' => 'nullable|string',
-        ]);
-
-        $setting->update($data);
+        $this->contactService->updateContactSetting($request->validated());
 
         return redirect()->route('admin.contact-settings.edit')->with('success', 'Contact settings updated successfully.');
     }

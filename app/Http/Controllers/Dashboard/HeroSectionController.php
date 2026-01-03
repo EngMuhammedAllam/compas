@@ -2,46 +2,37 @@
 
 namespace App\Http\Controllers\Dashboard;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\HeroSection;
-use App\Http\Traits\FileTrait;
+use App\Http\Requests\Dashboard\HeroSection\UpdateHeroSectionRequest;
+use App\Services\Dashboard\HeroSection\HeroSectionService;
 
 class HeroSectionController extends Controller
 {
-    use FileTrait;
+    protected $heroSectionService;
+
+    public function __construct(HeroSectionService $heroSectionService)
+    {
+        $this->heroSectionService = $heroSectionService;
+    }
 
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $heroSection = HeroSection::first(); 
-        return view('dashboard.hero.index', get_defined_vars());
+        $heroSection = $this->heroSectionService->getHeroSection();
+        return view('dashboard.hero.index', compact('heroSection'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, HeroSection $heroSection)
+    public function update(UpdateHeroSectionRequest $request)
     {
-        $validated = $request->validate([
-            'title' => 'required|string|max:255',
-            'description' => 'required|string|max:2000',
-        ]);
-
-        $heroSection = HeroSection::first();
-
-        if($request->hasFile('image')) {
-            $image = $this->deleteFile($heroSection['image'], 'public');
-            $validated['image'] = $this->updateFile($request->file('image'), $heroSection->image, 'hero');
-        }
-
-        $heroSection->update([
-                'title' => $validated['title'],
-                'description' => $validated['description'],
-                'image' => $validated['image'] ?? $heroSection['image'],
-            ]);
+        $this->heroSectionService->updateHeroSection(
+            $request->validated(),
+            $request->file('image')
+        );
 
         return redirect()->back()->with('success', 'Hero section updated successfully.');
     }

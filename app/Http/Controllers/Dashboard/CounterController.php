@@ -3,17 +3,27 @@
 namespace App\Http\Controllers\Dashboard;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Counter\StoreCounterRequest;
+use App\Http\Requests\Dashboard\Counter\UpdateCounterRequest;
 use App\Models\Counter;
+use App\Services\Dashboard\Counter\CounterService;
 use Illuminate\Http\Request;
 
 class CounterController extends Controller
 {
+    protected $counterService;
+
+    public function __construct(CounterService $counterService)
+    {
+        $this->counterService = $counterService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $counters = Counter::latest()->get();
+        $counters = $this->counterService->getAllCounters();
         return view('dashboard.counters.index', compact('counters'));
     }
 
@@ -28,14 +38,9 @@ class CounterController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreCounterRequest $request)
     {
-        $data = $request->validate([
-            'number' => 'required|string',
-            'title' => 'required|string',
-        ]);
-
-        Counter::create($data);
+        $this->counterService->createCounter($request->validated());
 
         return redirect()->route('admin.counters.index')->with('success', 'Counter created successfully.');
     }
@@ -60,15 +65,11 @@ class CounterController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request)
+    public function update(UpdateCounterRequest $request)
     {
         $counter = Counter::findOrFail($request->id);
-        $data = $request->validate([
-            'number' => 'required|string',
-            'title' => 'required|string',
-        ]);
 
-        $counter->update($data);
+        $this->counterService->updateCounter($counter, $request->validated());
 
         return redirect()->route('admin.counters.index')->with('success', 'Counter updated successfully.');
     }
@@ -79,7 +80,7 @@ class CounterController extends Controller
     public function destroy(Request $request)
     {
         $counter = Counter::findOrFail($request->id);
-        $counter->delete();
+        $this->counterService->deleteCounter($counter);
         return redirect()->route('admin.counters.index')->with('success', 'Counter deleted successfully.');
     }
 }
