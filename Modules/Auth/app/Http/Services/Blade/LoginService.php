@@ -25,7 +25,7 @@ class LoginService
             // Check if the password is correct
             if (! $user || ! Hash::check($request->password, $user->password)) {
                 return redirect()
-                    ->route('login')
+                    ->route('loginform')
                     ->with('error', 'Invalid credentials.');
             }
 
@@ -36,10 +36,9 @@ class LoginService
             return redirect()
                 ->route('dashboard')
                 ->with('success', 'Logged in successfully.');
-
         } catch (Exception $e) {
             return redirect()
-                ->route('login')
+                ->route('loginform')
                 ->with('error', 'Error: ' . 'Something went wrong.');
         }
     }

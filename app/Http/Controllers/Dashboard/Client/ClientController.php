@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Client;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Client\StoreClientRequest;

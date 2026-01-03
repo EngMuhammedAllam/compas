@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers\Dashboard;
+namespace App\Http\Controllers\Dashboard\Cta;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Dashboard\Cta\UpdateCtaSectionRequest;

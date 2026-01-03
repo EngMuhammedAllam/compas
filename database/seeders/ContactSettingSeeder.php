@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\Setting\ContactSetting;
+use App\Models\ContactSetting;
 
 class ContactSettingSeeder extends Seeder
 {

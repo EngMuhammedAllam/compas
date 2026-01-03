@@ -9,7 +9,7 @@ use App\Http\Controllers\Dashboard\HeroSectionController;
 // ############################## Auth Routes ################################### //
 Route::prefix('auth')->group(function () {
     Route::get('/login-form', [AuthController::class, 'loginForm'])->name('loginform');
-    Route::post('/login', [AuthController::class, 'login'])->name('login');
+    Route::post('/dashboard/login', [AuthController::class, 'login'])->name('dashboard.login');
 })->middleware('guest');
 
 Route::prefix('auth')->group(function () {
