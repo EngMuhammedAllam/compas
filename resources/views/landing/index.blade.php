@@ -16,12 +16,15 @@
     <section class="gj do ir hj sp jr i pg hero-section" dir="ltr" style="margin:20px !important;">
         <!-- Hero Images -->
         <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
-            <img src="{{ secure_asset('land/images/shape-02.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h u p va" />
-            <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h v w va" />
+            <img src="{{ secure_asset('land/images/shape-02.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h u p va ud-hidden md:ud-block" />
+            <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h v w va ud-hidden md:ud-block" />
 
             <!-- Hero Container المحسن -->
             <div class="hero-container ud-shadow-xl ud-rounded-lg">
-                <img src="{{ secure_asset('storage/' . $heroSection->image) }}" alt="أنظمة التبريد والتكييف المركزية" class="ud-object-cover" fetchpriority="high" loading="eager" width="1200" height="600" />
+                <picture>
+                    <source media="(max-width: 767px)" srcset="{{ secure_asset('storage/' . str_replace(['.jpg', '.png'], ['-mobile.jpg', '-mobile.png'], $heroSection->image)) }}">
+                    <img src="{{ secure_asset('storage/' . $heroSection->image) }}" alt="أنظمة التبريد والتكييف المركزية" class="ud-object-cover" fetchpriority="high" loading="eager" width="1200" height="600" />
+                </picture>
                 <div class="overlay ud-bg-black/50"></div>
                 <div class="content ud-px-4 ud-py-8">
                     <div class="ud-max-w-4xl ud-mx-auto">
@@ -81,11 +84,17 @@
                 <div class="animate_left xc gn gg jn/2 i">
                     <div>
                         <img src="{{ secure_asset('land/images/shape-05.svg')}}" alt="Shape" class="h -ud-left-5 x" loading="lazy" width="50" height="50" />
-                        <img src="{{ $aboutSection->image1 ? asset('storage/' . $aboutSection->image1) : secure_asset('land/images/About1.jpeg') }}" style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" loading="lazy" width="300" height="350" />
-                        <img src="{{ $aboutSection->image2 ? asset('storage/' . $aboutSection->image2) : secure_asset('land/images/About2.jpeg') }}" style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" loading="lazy" width="300" height="300" />
+                        <img src="{{ $aboutSection->image1 ? asset('storage/' . $aboutSection->image1) : secure_asset('land/images/About1.jpeg') }}"
+                            srcset="{{ $aboutSection->image1 ? asset('storage/' . str_replace(['.jpg', '.png'], ['-mobile.jpg', '-mobile.png'], $aboutSection->image1)) : '' }} 600w"
+                            style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" loading="lazy" width="300" height="350" />
+                        <img src="{{ $aboutSection->image2 ? asset('storage/' . $aboutSection->image2) : secure_asset('land/images/About2.jpeg') }}"
+                            srcset="{{ $aboutSection->image2 ? asset('storage/' . str_replace(['.jpg', '.png'], ['-mobile.jpg', '-mobile.png'], $aboutSection->image2)) : '' }} 600w"
+                            style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" loading="lazy" width="300" height="300" />
                     </div>
                     <div>
-                        <img src="{{ $aboutSection->image3 ? asset('storage/' . $aboutSection->image3) : secure_asset('land/images/About3.jpeg') }}" style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" loading="lazy" width="300" height="300" />
+                        <img src="{{ $aboutSection->image3 ? asset('storage/' . $aboutSection->image3) : secure_asset('land/images/About3.jpeg') }}"
+                            srcset="{{ $aboutSection->image3 ? asset('storage/' . str_replace(['.jpg', '.png'], ['-mobile.jpg', '-mobile.png'], $aboutSection->image3)) : '' }} 600w"
+                            style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" loading="lazy" width="300" height="300" />
                         <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="bb" loading="lazy" width="50" height="50" />
                     </div>
                 </div>
@@ -276,7 +285,7 @@
     <!-- ===== Services End ===== -->
 
     <!-- ===== Testimonials Start ===== -->
-    <section class="i ua lazy-bg" data-bg="{{ secure_asset('land/images/shape-08.svg')}}"
+    <section class="i ua lazy-bg ud-hidden md:ud-block" data-bg="{{ secure_asset('land/images/shape-08.svg')}}"
         style="background-repeat: no-repeat;
             background-position: center;
             padding-top: 8rem;
@@ -306,6 +315,8 @@
             <div class="animate_top jb cq">
 
                 <div class="swiper testimonial-01">
+                    <div class="swiper-button-next" aria-label="التالي"></div>
+                    <div class="swiper-button-prev" aria-label="السابق"></div>
 
                     <div class="swiper-wrapper">
 

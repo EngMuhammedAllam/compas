@@ -8,7 +8,7 @@
         </a>
 
         <!-- Hamburger Toggle BTN -->
-        <button class="po rc" @click="navigationOpen = !navigationOpen">
+        <button class="po rc" @click="navigationOpen = !navigationOpen" aria-label="تبديل القائمة">
           <span class="rc i pf re pd">
             <span class="du-block h q vd yc">
               <span class="rc i r s eh um tg te rd eb ml jl dl" :class="{ 'ue el': !navigationOpen }"></span>
@@ -42,8 +42,8 @@
 
         <div class="tc wf ig pb no">
           <div class="pc h io pa ra" :class="navigationOpen ? '!-ud-visible' : 'd'">
-            <label class="rc ab i">
-              <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode" class="pf vd yc uk h r za ab" />
+            <label class="rc ab i" aria-label="تبديل الوضع الليلي">
+              <input type="checkbox" :value="darkMode" @change="darkMode = !darkMode" class="pf vd yc uk h r za ab" aria-label="تبديل الوضع الليلي" />
               <!-- Icon Sun -->
               <svg :class="{ 'wn' : page === 'home', 'xh' : page === 'home' && stickyMenu }" class="th om" width="25"
                 height="25" viewBox="0 0 25 25" fill="none" xmlns="http://www.w3.org/2000/svg">
