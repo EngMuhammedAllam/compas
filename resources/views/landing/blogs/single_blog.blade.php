@@ -161,6 +161,6 @@
 
     <!-- ===== CTA End ===== -->
 
-    <script defer src="{{ secure_asset('land/bundle.js') }}"></script>
+    {{-- <script defer src="{{ secure_asset('land/bundle.js') }}"></script> --}}
 
     @endsection

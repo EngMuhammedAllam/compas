@@ -3,8 +3,8 @@
     <div class="bb ze ki xn 2xl:ud-px-0 oo wf yf i">
       <div class="vd to/4 tc wf yf">
         <a href="{{ route('landing') }}">
-          <img class="om" src="{{ secure_asset('land/images/logo-light.png')}}" alt="Logo Light" style="width: 75px;" />
-          <img class="xc nm" src="{{ secure_asset('land/images/logo-dark.png')}}" alt="Logo Dark" style="width: 75px;" />
+          <img class="om" src="{{ secure_asset('land/images/logo-light-opt.png')}}" alt="Logo Light" style="width: 75px;" fetchpriority="high" />
+          <img class="xc nm" src="{{ secure_asset('land/images/logo-dark-opt.png')}}" alt="Logo Dark" style="width: 75px;" fetchpriority="high" />
         </a>
 
         <!-- Hamburger Toggle BTN -->

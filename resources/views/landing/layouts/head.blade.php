@@ -11,7 +11,7 @@
 
   <!-- Basic Meta Tags -->
   <meta name="description" content="@yield('meta_description', $seo->meta_description ?? '')">
-  <meta name="keywords" content="@yield('meta_keywords', $seo->meta_keywords ?? '')">
+  <meta name="keywords" content="@yield('meta_keywords', $seo->keyword ?? '')">
 
   @if(!empty($seo->author))
     <meta name="author" content="{{ $seo->author }}">
@@ -63,82 +63,77 @@
   <!-- Organization -->
   <script type="application/ld+json">
     {!! json_encode([
-      '@context' => 'https://schema.org',
-      '@type' => 'Organization',
-      'name' => $seo->meta_title ?? config('app.name'),
-      'url' => url('/'),
-      'logo' => asset('land/images/logo.png'),
-      'description' => $seo->meta_description ?? '',
-      'contactPoint' => [
-        '@type' => 'ContactPoint',
-        'telephone' => optional(\App\Models\Setting\ContactSetting::first())->phone,
-        'contactType' => 'customer service',
-        'areaServed' => 'EG',
-        'availableLanguage' => ['Arabic', 'English']
-      ],
-      'sameAs' => array_filter([
-        optional(\App\Models\Setting\ContactSetting::first())->facebook,
-        optional(\App\Models\Setting\ContactSetting::first())->twitter,
-        optional(\App\Models\Setting\ContactSetting::first())->linkedin,
-        optional(\App\Models\Setting\ContactSetting::first())->instagram,
-      ])
+        '@context' => 'https://schema.org',
+        '@type' => 'Organization',
+        'name' => $seo->meta_title ?? config('app.name'),
+        'url' => url('/'),
+        'logo' => asset('land/images/logo.png'),
+        'description' => $seo->meta_description ?? '',
+        'contactPoint' => [
+            '@type' => 'ContactPoint',
+            'telephone' => optional(\App\Models\Setting\ContactSetting::first())->phone,
+            'contactType' => 'customer service',
+            'areaServed' => 'EG',
+            'availableLanguage' => ['Arabic', 'English']
+        ],
+        'sameAs' => array_filter([
+            optional(\App\Models\Setting\ContactSetting::first())->facebook,
+            optional(\App\Models\Setting\ContactSetting::first())->twitter,
+            optional(\App\Models\Setting\ContactSetting::first())->linkedin,
+            optional(\App\Models\Setting\ContactSetting::first())->instagram,
+        ])
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
   </script>
 
   <!-- WebSite -->
   <script type="application/ld+json">
     {!! json_encode([
-      '@context' => 'https://schema.org',
-      '@type' => 'WebSite',
-      'name' => $seo->og_site_name ?? $seo->meta_title ?? config('app.name'),
-      'url' => url('/'),
-      'potentialAction' => [
-        '@type' => 'SearchAction',
-        'target' => [
-          '@type' => 'EntryPoint',
-          'urlTemplate' => url('/') . '?q={search_term_string}'
-        ],
-        'query-input' => 'required name=search_term_string'
-      ]
+        '@context' => 'https://schema.org',
+        '@type' => 'WebSite',
+        'name' => $seo->og_site_name ?? $seo->meta_title ?? config('app.name'),
+        'url' => url('/'),
+        'potentialAction' => [
+            '@type' => 'SearchAction',
+            'target' => [
+                '@type' => 'EntryPoint',
+                'urlTemplate' => url('/') . '?q={search_term_string}'
+            ],
+            'query-input' => 'required name=search_term_string'
+        ]
     ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
   </script>
 
   <!-- Breadcrumbs -->
   @php
     $breadcrumbs = [
-      [
-        '@type' => 'ListItem',
-        'position' => 1,
-        'name' => 'Home',
-        'item' => url('/')
-      ]
+        ['@type' => 'ListItem', 'position' => 1, 'name' => 'Home', 'item' => url('/')],
     ];
 
-    if (request()->segment(1)) {
-      $breadcrumbs[] = [
-        '@type' => 'ListItem',
-        'position' => 2,
-        'name' => ucfirst(request()->segment(1)),
-        'item' => url(request()->segment(1))
-      ];
+    if ($seg1 = request()->segment(1)) {
+        $breadcrumbs[] = [
+            '@type' => 'ListItem',
+            'position' => 2,
+            'name' => ucfirst($seg1),
+            'item' => url($seg1)
+        ];
     }
 
-    if (request()->segment(2)) {
-      $breadcrumbs[] = [
-        '@type' => 'ListItem',
-        'position' => 3,
-        'name' => ucfirst(request()->segment(2)),
-        'item' => url(request()->segment(1) . '/' . request()->segment(2))
-      ];
+    if ($seg2 = request()->segment(2)) {
+        $breadcrumbs[] = [
+            '@type' => 'ListItem',
+            'position' => 3,
+            'name' => ucfirst($seg2),
+            'item' => url($seg1 . '/' . $seg2)
+        ];
     }
   @endphp
 
   @if(count($breadcrumbs) > 1)
     <script type="application/ld+json">
       {!! json_encode([
-        '@context' => 'https://schema.org',
-        '@type' => 'BreadcrumbList',
-        'itemListElement' => $breadcrumbs
+          '@context' => 'https://schema.org',
+          '@type' => 'BreadcrumbList',
+          'itemListElement' => $breadcrumbs
       ], JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE) !!}
     </script>
   @endif
@@ -150,6 +145,16 @@
     <link rel="icon" href="{{ asset('favicon.ico') }}">
   @endif
 
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+  <noscript>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Outfit:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  </noscript>
+
+  <!-- Main CSS -->
   <link href="{{ secure_asset('land/style.css') }}" rel="stylesheet">
 
   <!-- Extra Head Scripts -->
@@ -157,7 +162,7 @@
 </head>
 
 <body
-  x-data="{ page: {{ json_encode($page) }}, darkMode: true, stickyMenu: false, navigationOpen: false, scrollTop: false }"
+  x-data='{ page: @json($page ?? "home"), darkMode: true, stickyMenu: false, navigationOpen: false, scrollTop: false }'
   x-init="darkMode = JSON.parse(localStorage.getItem('darkMode'));
             $watch('darkMode', v => localStorage.setItem('darkMode', JSON.stringify(v)))"
   :class="{ 'b eh': darkMode }">

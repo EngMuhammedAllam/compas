@@ -4,18 +4,24 @@
 {{ config('app.name') }}
 @endsection
 
+@push('head_scripts')
+@if(isset($heroSection->image))
+<link rel="preload" as="image" href="{{ secure_asset('storage/' . $heroSection->image) }}" fetchpriority="high">
+@endif
+@endpush
+
 @section('content')
 <main>
     <!-- ===== Hero Start ===== -->
     <section class="gj do ir hj sp jr i pg hero-section" dir="ltr" style="margin:20px !important;">
         <!-- Hero Images -->
         <div class="xc fn zd/2 2xl:ud-w-187.5 bd 2xl:ud-h-171.5 h q r">
-            <img src="{{ secure_asset('land/images/shape-02.svg')}}" alt="shape" class="xc 2xl:ud-block h u p va" />
-            <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="shape" class="xc 2xl:ud-block h v w va" />
+            <img src="{{ secure_asset('land/images/shape-02.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h u p va" />
+            <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="shape" loading="lazy" width="100" height="100" class="xc 2xl:ud-block h v w va" />
 
             <!-- Hero Container المحسن -->
             <div class="hero-container ud-shadow-xl ud-rounded-lg">
-                <img src="{{ secure_asset('storage/' . $heroSection->image) }}" alt="أنظمة التبريد والتكييف المركزية" class="ud-object-cover" />
+                <img src="{{ secure_asset('storage/' . $heroSection->image) }}" alt="أنظمة التبريد والتكييف المركزية" class="ud-object-cover" fetchpriority="high" loading="eager" width="1200" height="600" />
                 <div class="overlay ud-bg-black/50"></div>
                 <div class="content ud-px-4 ud-py-8">
                     <div class="ud-max-w-4xl ud-mx-auto">
@@ -55,7 +61,7 @@
                 <!-- مميزات التبريد والتكييف - العنصر 1 -->
                 @foreach ($features as $feature)
                 <div class="animate_left jn/2">
-                    <img src="{{ secure_asset('storage/' . $feature->image) }}" style="width: 50px; height: 50px;align-self: center;" alt="مميزات التبريد والتكييف" class="ib" />
+                    <img src="{{ secure_asset('storage/' . $feature->image) }}" style="width: 50px; height: 50px;align-self: center;" alt="مميزات التبريد والتكييف" class="ib" loading="lazy" width="50" height="50" />
                     <h4 class="ek yj mk gb">{{ $feature->title }}</h4>
                     <p class="fq">
                         {{ $feature->description }}
@@ -74,13 +80,13 @@
                 <!-- About Images -->
                 <div class="animate_left xc gn gg jn/2 i">
                     <div>
-                        <img src="{{ secure_asset('land/images/shape-05.svg')}}" alt="Shape" class="h -ud-left-5 x" />
-                        <img src="{{ $aboutSection->image1 ? asset('storage/' . $aboutSection->image1) : secure_asset('land/images/About1.jpeg') }}" style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" />
-                        <img src="{{ $aboutSection->image2 ? asset('storage/' . $aboutSection->image2) : secure_asset('land/images/About2.jpeg') }}" style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" />
+                        <img src="{{ secure_asset('land/images/shape-05.svg')}}" alt="Shape" class="h -ud-left-5 x" loading="lazy" width="50" height="50" />
+                        <img src="{{ $aboutSection->image1 ? asset('storage/' . $aboutSection->image1) : secure_asset('land/images/About1.jpeg') }}" style="height: 350px !important;width: 300px !important;" alt="أنظمة التبريد المتطورة" class="ib" loading="lazy" width="300" height="350" />
+                        <img src="{{ $aboutSection->image2 ? asset('storage/' . $aboutSection->image2) : secure_asset('land/images/About2.jpeg') }}" style="height: 300px !important;width: 300px !important;" height="100" alt="تركيب الأنظمة المركزية" loading="lazy" width="300" height="300" />
                     </div>
                     <div>
-                        <img src="{{ $aboutSection->image3 ? asset('storage/' . $aboutSection->image3) : secure_asset('land/images/About3.jpeg') }}" style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" />
-                        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="bb" />
+                        <img src="{{ $aboutSection->image3 ? asset('storage/' . $aboutSection->image3) : secure_asset('land/images/About3.jpeg') }}" style="height: 300px !important;width: 300px !important;" alt="صيانة الأنظمة" class="ob gb" loading="lazy" width="300" height="300" />
+                        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="bb" loading="lazy" width="50" height="50" />
                     </div>
                 </div>
 
@@ -99,7 +105,7 @@
                     <a href="{{ $aboutSection->video_url ?? 'https://www.youtube.com/watch?v=wBsEe-gpeCQ' }}" data-fslightbox class="vc wf hg mb">
                         <span class="tc wf xf be dd rg i gh ua">
                             <span class="nf h vc yc vd rg gh qk -ud-z-1"></span>
-                            <img src="{{ secure_asset('land/images/icon-play.svg')}}" alt="تشغيل" />
+                            <img src="{{ secure_asset('land/images/icon-play.svg')}}" alt="تشغيل" loading="lazy" width="48" height="48" />
                         </span>
                         <span class="kk" style="color:#7c828c">شاهد كيفية عملنا</span>
                     </a>
@@ -169,7 +175,7 @@
 
                         <img src="{{ secure_asset('storage/projects/' . $image->image) }}"
                             alt="{{ $image->title ?? $category->name }}"
-                            style="width:100%; height:350px" />
+                            style="width:100%; height:350px" loading="lazy" width="400" height="350" />
 
                         <div class="h s r df nl kl im tc sf wf xf vd yc sg al hh/20 z-10">
                             <h4 class="ek tj kk hc">
@@ -216,8 +222,8 @@
             <div class="wc rf qn zf cp kq xf wf">
                 @foreach ($clients as $client)
                 <a href="{{ $client->link ?? '#!' }}" class="rc animate_top" target="{{ $client->link ? '_blank' : '_self' }}" title="{{ $client->name }}">
-                    <img class="th wl ml il zl om" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" />
-                    <img class="xc sk ml il zl nm" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" />
+                    <img class="th wl ml il zl om" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" loading="lazy" width="100" height="100" />
+                    <img class="xc sk ml il zl nm" src="{{ asset('storage/' . $client->image) }}" alt="{{ $client->name ?? 'Client Logo' }}" style="width: 100px; height: 100px; object-fit: contain;" loading="lazy" width="100" height="100" />
                     <span class="d-block mt-2 text-center text-sm font-medium text-gray-700 dark:text-gray-300">{{ $client->name }}</span>
                 </a>
                 @endforeach
@@ -251,9 +257,9 @@
                 <div class="animate_top sg oi pi zq ml il am cn _m">
 
                     @if($service->icon)
-                    <img src="{{ secure_asset('storage/' . $service->icon) }}" alt="{{ $service->title }}">
+                    <img src="{{ secure_asset('storage/' . $service->icon) }}" alt="{{ $service->title }}" loading="lazy" width="50" height="50">
                     @else
-                    <img src="{{ secure_asset('land/images/shape-08.svg') }}" alt="{{ $service->title }}">
+                    <img src="{{ secure_asset('land/images/shape-08.svg') }}" alt="{{ $service->title }}" loading="lazy" width="50" height="50">
                     @endif
 
                     <h4 class="ek zj kk wm nb _b">{{ $service->title }}</h4>
@@ -270,11 +276,10 @@
     <!-- ===== Services End ===== -->
 
     <!-- ===== Testimonials Start ===== -->
-    <section class="hj rp hr"
-        style="background-image: url('{{ asset('land/images/shape-08.svg')}}'); 
-            background-repeat: no-repeat; 
-            background-position: center; 
-            padding-top: 8rem; 
+    <section class="i ua lazy-bg" data-bg="{{ secure_asset('land/images/shape-08.svg')}}"
+        style="background-repeat: no-repeat;
+            background-position: center;
+            padding-top: 8rem;
             padding-bottom: 8rem;">
 
         <!-- Section Title Start -->
@@ -315,7 +320,7 @@
                                 <div class="tc sf rn tn un zf dp">
 
                                     <div>
-                                        <img src="{{ secure_asset('land/images/icon-quote.svg')}}" alt="اقتباس" />
+                                        <img src="{{ secure_asset('land/images/icon-quote.svg')}}" alt="اقتباس" loading="lazy" width="30" height="30" />
 
                                         <p class="ek ik xj _p kc fb">
                                             "{{ $testimonial->message }}"
@@ -373,10 +378,10 @@
 
     <!-- ===== Counter Start ===== -->
     <section class="i pg qh rm ji hp">
-        <img src="{{ secure_asset('land/images/shape-11.svg')}}" alt="Shape" class="of h ga ha ke" />
-        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="h ia o ae jf" />
-        <img src="{{ secure_asset('land/images/shape-14.svg')}}" alt="Shape" class="h ja ka" />
-        <img src="{{ secure_asset('land/images/shape-15.svg')}}" alt="Shape" class="h q p" />
+        <img src="{{ secure_asset('land/images/shape-11.svg')}}" alt="Shape" class="of h ga ha ke" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="h ia o ae jf" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-14.svg')}}" alt="Shape" class="h ja ka" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-15.svg')}}" alt="Shape" class="h q p" loading="lazy" width="100" height="100" />
 
         <div class="bb ze i va ki xn br">
             <div class="tc uf sn tn xf un gg">
@@ -398,7 +403,6 @@
 
         <!-- Section Title Start -->
         <div
-            <div
             x-data="{
             sectionTitle: '{{ $blogSection->title ?? 'أحدث المقالات والأخبار' }}',
             sectionTitleText: '{{ $blogSection->description ?? 'تابع أحدث المستجدات والتقنيات في عالم التبريد والتكييف. نشارككم نصائح وخبرات تساعدكم في الحفاظ على كفاءة أنظمتكم وتوفير الطاقة.' }}'
@@ -423,7 +427,7 @@
                         <img class="w-full"
                             src="{{ secure_asset('storage/blogs/' . $post->image ?? 'land/images/blog-01.jpg') }}"
                             alt="{{ $post->title }}"
-                            style="height: 329px;width: 100%;" />
+                            style="height: 329px;width: 100%;" loading="lazy" width="400" height="329" />
 
                         <div class="im h r s df vd yc wg tc wf xf al hh/20 nl il z-10">
                             <a href="{{ route('blog.show', $post->id) }}"
@@ -440,13 +444,13 @@
 
                             <!-- Author -->
                             <div class="tc wf ag">
-                                <img src="{{ secure_asset('land/images/icon-man.svg') }}" alt="كاتب" />
+                                <img src="{{ secure_asset('land/images/icon-man.svg') }}" alt="كاتب" loading="lazy" width="20" height="20" />
                                 <p>{{ $post->author }}</p>
                             </div>
 
                             <!-- Date -->
                             <div class="tc wf ag">
-                                <img src="{{ secure_asset('land/images/icon-calender.svg') }}" alt="تاريخ" />
+                                <img src="{{ secure_asset('land/images/icon-calender.svg') }}" alt="تاريخ" loading="lazy" width="20" height="20" />
                                 <p>{{ \Carbon\Carbon::parse($post->published_at)->format('d M Y') }}</p>
                             </div>
 
@@ -474,10 +478,10 @@
     <!-- ===== Contact Start ===== -->
     <section id="support" class="i pg fh rm ji gp uq" dir="rtl">
         <!-- الأشكال الخلفية -->
-        <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h ca u" />
-        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="شكل" class="h w da ee" />
-        <img src="{{ secure_asset('land/images/shape-12.svg')}}" alt="شكل" class="h p s" />
-        <img src="{{ secure_asset('land/images/shape-13.svg')}}" alt="شكل" class="h r q" />
+        <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h ca u" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="شكل" class="h w da ee" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-12.svg')}}" alt="شكل" class="h p s" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-13.svg')}}" alt="شكل" class="h r q" loading="lazy" width="100" height="100" />
 
         <!-- عنوان القسم -->
         <div id="contact" class="bb ze rj ki xn vq mb en"
@@ -494,7 +498,7 @@
 
                 <!-- معلومات التواصل -->
                 <div class="animate_top w-full lg:w-1/2 mn/5 to/3 vk sg hh sm yh rq i pg relative">
-                    <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h la x wd absolute top-0 left-0" />
+                    <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h la x wd absolute top-0 left-0" loading="lazy" width="100" height="100" />
 
                     <div class="fb space-y-6">
                         <div>

@@ -16,10 +16,6 @@ class AuthRepository implements AuthInterface
 
     use ResponseTrait;
 
-    /**
-     * @param RegisterRequest $request
-     * @return mixed
-     */
     public function create($request)
     {
         return DB::transaction(function () use ($request) {
@@ -35,10 +31,6 @@ class AuthRepository implements AuthInterface
         });
     }
 
-    /**
-     * @param LoginRequest $request
-     * @return \Illuminate\Http\JsonResponse|mixed
-     */
     public function find($request)
     {
         return  User::where('email', $request->email)->orWhere('phone', $request->email)->first();
