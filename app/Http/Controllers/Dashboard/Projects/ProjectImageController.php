@@ -19,7 +19,7 @@ class ProjectImageController extends Controller
 
     public function create($id)
     {
-        $category = ProjectCategory::findOrFail($id); // This is just fetching category for view, kept simple.
+        $category = ProjectCategory::findOrFail($id);
         return view('dashboard.projects.image-create', compact('category'));
     }
 

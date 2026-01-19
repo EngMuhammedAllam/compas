@@ -389,10 +389,10 @@
 
     <!-- ===== Counter Start ===== -->
     <section class="i pg qh rm ji hp">
-        <img src="{{ secure_asset('land/images/shape-11.svg')}}" alt="Shape" class="of h ga ha ke" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="h ia o ae jf" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-14.svg')}}" alt="Shape" class="h ja ka" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-15.svg')}}" alt="Shape" class="h q p" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-11.svg')}}" alt="Shape" class="of h ga ha ke ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="Shape" class="h ia o ae jf ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-14.svg')}}" alt="Shape" class="h ja ka ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-15.svg')}}" alt="Shape" class="h q p ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
 
         <div class="bb ze i va ki xn br">
             <div class="tc uf sn tn xf un gg">
@@ -489,10 +489,10 @@
     <!-- ===== Contact Start ===== -->
     <section id="support" class="i pg fh rm ji gp uq" dir="rtl">
         <!-- الأشكال الخلفية -->
-        <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h ca u" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="شكل" class="h w da ee" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-12.svg')}}" alt="شكل" class="h p s" loading="lazy" width="100" height="100" />
-        <img src="{{ secure_asset('land/images/shape-13.svg')}}" alt="شكل" class="h r q" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h ca u ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-07.svg')}}" alt="شكل" class="h w da ee ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-12.svg')}}" alt="شكل" class="h p s ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
+        <img src="{{ secure_asset('land/images/shape-13.svg')}}" alt="شكل" class="h r q ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
 
         <!-- عنوان القسم -->
         <div id="contact" class="bb ze rj ki xn vq mb en"
@@ -509,7 +509,7 @@
 
                 <!-- معلومات التواصل -->
                 <div class="animate_top w-full lg:w-1/2 mn/5 to/3 vk sg hh sm yh rq i pg relative">
-                    <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h la x wd absolute top-0 left-0" loading="lazy" width="100" height="100" />
+                    <img src="{{ secure_asset('land/images/shape-03.svg')}}" alt="شكل" class="h la x wd absolute top-0 left-0 ud-hidden md:ud-block" loading="lazy" width="100" height="100" />
 
                     <div class="fb space-y-6">
                         <div>
@@ -605,7 +605,7 @@
     <!-- ===== CTA Start ===== -->
     <section class="i pg gh ji" dir="rtl" style="text-align:center;">
         <!-- خلفية زخرفية -->
-        <img class="h p q" src="{{ secure_asset('land/images/shape-16.svg')}}" alt="شكل زخرفي" />
+        <img class="h p q ud-hidden md:ud-block" src="{{ secure_asset('land/images/shape-16.svg')}}" alt="شكل زخرفي" loading="lazy" />
 
         <div class="bb ye i z-10 ki xn dr">
             <div class="tc uf sn tn un gg">

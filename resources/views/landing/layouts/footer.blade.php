@@ -114,21 +114,15 @@
 
   {{-- <script defer src="{{ secure_asset('land/bundle.js') }}"></script> --}}
 
-  <!-- Alpine JS & Intersect -->
+  <!-- Alpine JS & Intersect - Core interactivity -->
   <script defer src="https://cdn.jsdelivr.net/npm/@alpinejs/intersect@3.10.3/dist/cdn.min.js"></script>
   <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.10.3/dist/cdn.min.js"></script>
 
-  <!-- Swiper JS -->
-  <script defer src="https://cdn.jsdelivr.net/npm/swiper@8.4.2/swiper-bundle.min.js"></script>
-
-  <!-- ScrollReveal -->
-  <script defer src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
-
-  <!-- Isotope -->
-  <script defer src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
-
-  <!-- FsLightbox -->
-  <script defer src="https://cdnjs.cloudflare.com/ajax/libs/fslightbox/3.0.9/index.min.js"></script>
+  <!-- Non-critical libraries - loaded with lower priority -->
+  <script defer fetchpriority="low" src="https://cdn.jsdelivr.net/npm/swiper@8.4.2/swiper-bundle.min.js"></script>
+  <script defer fetchpriority="low" src="https://unpkg.com/scrollreveal@4.0.0/dist/scrollreveal.min.js"></script>
+  <script defer fetchpriority="low" src="https://unpkg.com/isotope-layout@3/dist/isotope.pkgd.min.js"></script>
+  <script defer fetchpriority="low" src="https://cdnjs.cloudflare.com/ajax/libs/fslightbox/3.0.9/index.min.js"></script>
 
   <!-- Custom Init -->
   <script defer src="{{ secure_asset('land/js/custom.js') }}"></script>
