@@ -1,8 +1,8 @@
 <?php
 
-namespace Modules\Auth\app\Http\Services\blade;
+namespace Modules\Auth\App\Http\Services\Blade;
 
-use Modules\Auth\app\Http\Repository\Api\AuthRepository;
+use Modules\Auth\App\Http\Repository\Api\AuthRepository;
 use Illuminate\Support\Facades\Auth;
 
 class LogoutService

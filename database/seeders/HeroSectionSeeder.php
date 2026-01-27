@@ -2,9 +2,8 @@
 
 namespace Database\Seeders;
 
-use App\Models\HeroSection;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Hero\HeroSection;
 
 class HeroSectionSeeder extends Seeder
 {

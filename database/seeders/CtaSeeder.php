@@ -2,8 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Cta\CtaSection;
 use Illuminate\Database\Seeder;
-use App\Models\CtaSection;
 
 class CtaSeeder extends Seeder
 {

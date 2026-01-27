@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\app\Http\Controllers\Front\AuthController;
+use Modules\Auth\App\Http\Controllers\Front\AuthController;
 use App\Http\Controllers\Dashboard\DashboardController;
 use App\Http\Controllers\Dashboard\HeroSectionController;
 

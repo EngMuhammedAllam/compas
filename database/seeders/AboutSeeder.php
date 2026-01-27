@@ -3,8 +3,8 @@
 namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
-use App\Models\AboutSection;
-use App\Models\AboutPoint;
+use App\Models\About\AboutPoint;
+use App\Models\About\AboutSection;
 
 class AboutSeeder extends Seeder
 {

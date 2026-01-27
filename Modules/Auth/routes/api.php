@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\app\Http\Controllers\Api\RegisterController;
-use Modules\Auth\app\Http\Controllers\Api\LoginController;
-use Modules\Auth\app\Http\Controllers\Api\AuthController;
+use Modules\Auth\App\Http\Controllers\Api\RegisterController;
+use Modules\Auth\App\Http\Controllers\Api\LoginController;
+use Modules\Auth\App\Http\Controllers\Api\AuthController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Http;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\GoogleController;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\GithubController;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\FacebookController;
-use Modules\Auth\app\Http\Controllers\Api\ResetPassword\PasswordResetController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\GoogleController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\GithubController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\FacebookController;
+use Modules\Auth\App\Http\Controllers\Api\ResetPassword\PasswordResetController;
 
 // Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 //     Route::apiResource('auths', AuthController::class)->names('auth');

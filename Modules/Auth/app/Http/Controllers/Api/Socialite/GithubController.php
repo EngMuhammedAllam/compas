@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\app\Http\Controllers\Api\Socialite;
+namespace Modules\Auth\App\Http\Controllers\Api\Socialite;
 
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
@@ -48,12 +48,8 @@ class GithubController extends Controller
                 'user'  => $user,
                 'token' => $token
             ], 'User logged in successfully via GitHub');
-
         } catch (\Exception $e) {
             return $this->sendResponseError('GitHub authentication failed', 500, $e->getMessage());
         }
     }
-
-
-
 }

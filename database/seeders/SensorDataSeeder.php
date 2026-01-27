@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\CoolingSensor;
-use App\Models\TemperatureReading;
-use App\Models\TemperatureAlert;
-use Illuminate\Database\Seeder;
+
 use Carbon\Carbon;
+use Illuminate\Database\Seeder;
+use App\Models\Sensor\CoolingSensor;
+use App\Models\Sensor\TemperatureAlert;
+use App\Models\Sensor\TemperatureReading;
 
 class SensorDataSeeder extends Seeder
 {
