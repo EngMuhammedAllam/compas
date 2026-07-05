@@ -3,7 +3,7 @@
 namespace App\Policies;
 
 use App\Models\SectionTestimonial;
-use App\Models\User;
+use App\Models\Auth\User;
 use Illuminate\Auth\Access\Response;
 
 class SectionTestimonialPolicy

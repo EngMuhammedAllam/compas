@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\app\Http\Controllers\Api\Socialite;
+namespace Modules\Auth\App\Http\Controllers\Front\Socialite;
 
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
@@ -48,12 +48,8 @@ class GoogleController extends Controller
                 'user'  => $user,
                 'token' => $token
             ], 'User logged in successfully via Google');
-
         } catch (\Exception $e) {
             return $this->sendResponseError('Google authentication failed', 500, $e->getMessage());
         }
     }
-
-
-
 }

@@ -53,7 +53,7 @@
                     <div class="animate_top rounded-md shadow-solid-13 bg-white dark:bg-blacksection border border-stroke dark:border-strokedark p-7.5 md:p-10">
 
                         <!-- Main Image -->
-                        <img src="{{ secure_asset('storage/blogs/' . $post->image ?? 'land/images/blog-01.jpg') }}" alt="{{ $post->title }}" style="height: 500px !important;width: 100% !important;" />
+                        <img loading="lazy" src="{{ secure_asset('storage/blogs/' . ($post->image ?? 'land/images/blog-01.jpg')) }}" alt="{{ $post->title }}" style="height: 500px !important;width: 100% !important;" />
 
                         <!-- Title -->
                         <h2 class="ek vj 2xl:ud-text-title-lg kk wm nb gb">
@@ -198,6 +198,6 @@
 
     <!-- ===== CTA End ===== -->
 
-    <script defer src="{{ secure_asset('land/bundle.js') }}"></script>
+    {{-- <script defer src="{{ secure_asset('land/bundle.js') }}"></script> --}}
 
     @endsection

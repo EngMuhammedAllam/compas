@@ -1,30 +1,36 @@
 <?php
 
-namespace Modules\Auth\app\Http\Services\blade;
+namespace Modules\Auth\App\Http\Services\Blade;
 
-use Modules\Auth\app\Http\Repository\Api\AuthRepository;
-use App\Http\Traits\ResponseTrait;
+use Modules\Auth\App\Http\Repository\Api\AuthRepository;
+use Modules\Auth\Models\User;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 use Exception;
-use Modules\Auth\app\Http\Resources\Api\UserAuthResource;
 
 class RegisterService
 {
-    use ResponseTrait;
-
     private $repository;
+
     public function __construct(AuthRepository $repository)
     {
         $this->repository = $repository;
     }
 
-    public function __invoke($request) 
+    public function __invoke($request)
     {
         try {
-            $user = $this->repository->create($request);
-            return redirect()->route('login')->with('success', 'User registered successfully');
+            $user = User::create([
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+            ]);
+
+            Auth::login($user);
+
+            return redirect()->route('dashboard')->with('success', 'Registered successfully.');
         } catch (Exception $e) {
-            return redirect()->route('register')->with('error', $e->getMessage());
+            return redirect()->back()->with('error', 'Something went wrong.');
         }
     }
-
 }

@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Contact;
+use App\Models\Contact\Contact;
 use App\Repositories\Interfaces\ContactRepositoryInterface;
 
 class ContactRepository extends BaseRepository implements ContactRepositoryInterface

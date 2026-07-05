@@ -2,21 +2,27 @@
 
 namespace App\Http\Controllers\Dashboard\Testimonial;
 
-use App\Http\Requests\StoreSectionTestimonialRequest;
-use App\Http\Requests\UpdateSectionTestimonialRequest;
 use App\Http\Controllers\Controller;
+use App\Http\Requests\Dashboard\Testimonial\UpdateSectionTestimonialRequest;
 use App\Models\Testimonials\SectionTestimonial;
-use App\Models\Testimonials\Testimonial;
+use App\Services\Dashboard\Testimonial\TestimonialSectionService;
 
 class SectionTestimonialController extends Controller
 {
+    protected $sectionService;
+
+    public function __construct(TestimonialSectionService $sectionService)
+    {
+        $this->sectionService = $sectionService;
+    }
+
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $sectionTestimonial = SectionTestimonial::first();
-        $testimonials = $sectionTestimonial->testimonials()->latest()->get();
+        $sectionTestimonial = $this->sectionService->getSectionTestimonial();
+        $testimonials = $this->sectionService->getTestimonials($sectionTestimonial);
         return view('dashboard.testimonials.index', compact('sectionTestimonial', 'testimonials'));
     }
 
@@ -26,7 +32,7 @@ class SectionTestimonialController extends Controller
      */
     public function edit(SectionTestimonial $sectionTestimonial)
     {
-        $sectionTestimonial = SectionTestimonial::first();
+        $sectionTestimonial = $this->sectionService->getSectionTestimonial();
         return view('dashboard.testimonials.section-edit', compact('sectionTestimonial'));
     }
 
@@ -35,11 +41,7 @@ class SectionTestimonialController extends Controller
      */
     public function update(UpdateSectionTestimonialRequest $request, SectionTestimonial $sectionTestimonial)
     {
-        $sectionTestimonial->first()
-        ->update([
-            'title' => $request->title,
-            'description' => $request->description,
-        ]);
+        $this->sectionService->updateSectionTestimonial($request->validated());
         return redirect()->route('section_testimonials.index')->with('success', 'تم تحديث قسم الشهادات بنجاح.');
     }
 }

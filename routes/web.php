@@ -3,9 +3,9 @@
 use App\Http\Controllers\ContactController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Landing\LandingController;
-use App\Http\Controllers\Dashboard\DashboardController;
-use App\Http\Controllers\Dashboard\FeatureController;
-use App\Http\Controllers\Dashboard\HeroSectionController;
+use App\Http\Controllers\Dashboard\Main\DashboardController;
+use App\Http\Controllers\Dashboard\Feature\FeatureController;
+use App\Http\Controllers\Dashboard\Hero\HeroSectionController;
 use App\Http\Controllers\Dashboard\Service\ServiceController;
 use App\Http\Controllers\Dashboard\Projects\ProjectController;
 use App\Http\Controllers\Dashboard\Projects\ProjectCategoryController;
@@ -35,7 +35,7 @@ Route::get('/robots.txt', [RobotsTxtController::class, 'index']);
 Route::get('/sitemap.xml', [SitemapController::class, 'index']);
 
 // ############################## [[== Admin ==]] Routes ################################### //
-Route::group([], function () {
+Route::group(['middleware' => ['check_auth']], function () {
     Route::get('/admin', [DashboardController::class, 'index'])->name('dashboard');
 
     // ############################ [Hero] Section Route ############################

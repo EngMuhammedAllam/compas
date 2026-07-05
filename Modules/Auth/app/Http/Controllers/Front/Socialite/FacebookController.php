@@ -1,6 +1,6 @@
 <?php
 
-namespace Modules\Auth\app\Http\Controllers\Api\Socialite;
+namespace Modules\Auth\App\Http\Controllers\Front\Socialite;
 
 use App\Http\Controllers\Controller;
 use Laravel\Socialite\Facades\Socialite;
@@ -50,12 +50,8 @@ class FacebookController extends Controller
                 'user'  => $user,
                 'token' => $token
             ], 'User logged in successfully via Facebook');
-
         } catch (\Exception $e) {
             return $this->sendResponseError('Facebook authentication failed', 500, $e->getMessage());
         }
     }
-
-
-
 }

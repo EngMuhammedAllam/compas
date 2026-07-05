@@ -2,7 +2,7 @@
 
 namespace App\Repositories\Eloquent;
 
-use App\Models\Counter;
+use App\Models\Counter\Counter;
 use App\Repositories\Interfaces\CounterRepositoryInterface;
 
 class CounterRepository extends BaseRepository implements CounterRepositoryInterface

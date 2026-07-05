@@ -2,64 +2,50 @@
 
 namespace App\Http\Controllers\Dashboard\Projects;
 
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
-use App\Models\Projects\ProjectCategory;
+use App\Http\Requests\Dashboard\Project\StoreProjectCategoryRequest;
+use App\Http\Requests\Dashboard\Project\UpdateProjectCategoryRequest;
+use App\Services\Dashboard\Project\ProjectCategoryService;
 
 class ProjectCategoryController extends Controller
 {
+    protected $categoryService;
+
+    public function __construct(ProjectCategoryService $categoryService)
+    {
+        $this->categoryService = $categoryService;
+    }
+
     public function create()
     {
         return view('dashboard.projects.category-create');
     }
 
-    public function store(Request $request)
+    public function store(StoreProjectCategoryRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'slug' => 'required|string|unique:project_categories,slug',
-            'is_active' => 'nullable|in:on',
-        ]);
-
-        ProjectCategory::create([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'is_active' => $request->has('is_active') ? 1 : 0,
-        ]);
+        $this->categoryService->createCategory($request->validated());
 
         return redirect()->route('projects.index')->with('success', 'تم إضافة التصنيف بنجاح.');
     }
 
     public function edit($id)
     {
-        $category = ProjectCategory::findOrFail($id);
+        $category = $this->categoryService->getCategoryById($id);
         return view('dashboard.projects.category-edit', compact('category'));
     }
 
-    public function update(Request $request , $id)
+    public function update(UpdateProjectCategoryRequest $request, $id)
     {
-        $request->validate([
-            'name' => 'required|string',
-            'slug' => 'required|string|unique:project_categories,slug,' . $request->category_id,
-            'is_active' => 'nullable|in:on',
-        ]);
-
-        $category = ProjectCategory::findOrFail($request->category_id);
-        // return $category;
-        
-        $category->update([
-            'name' => $request->name,
-            'slug' => $request->slug,
-            'is_active' => $request->has('is_active') ? 1 : 0,
-        ]);
+        $category = $this->categoryService->getCategoryById($id);
+        $this->categoryService->updateCategory($category, $request->validated());
 
         return redirect()->route('projects.index')->with('success', 'تم تحديث التصنيف بنجاح.');
     }
 
     public function destroy($id)
     {
-        $category = ProjectCategory::findOrFail($id);
-        $category->delete();
+        $category = $this->categoryService->getCategoryById($id);
+        $this->categoryService->deleteCategory($category);
 
         return redirect()->route('projects.index')->with('success', 'تم حذف التصنيف بنجاح.');
     }

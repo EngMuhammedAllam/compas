@@ -3,25 +3,21 @@
 namespace App\Http\Controllers\Landing;
 
 use App\Http\Controllers\Controller;
+use App\Services\Landing\BlogService;
+use App\Services\Landing\LandingPageService;
 use Illuminate\Http\Request;
-use App\Models\HeroSection;
-use App\Models\Feature;
-use App\Models\Projects\Project;
-use App\Models\Projects\ProjectCategory;
-use App\Models\Service\Service;
-use App\Models\Service\ServiceSection;
-use App\Models\Projects\ProjectSection;
-use App\Models\Testimonials\SectionTestimonial;
-use App\Models\Blog\BlogPost;
-use App\Models\Blog\BlogCategory;
-use App\Models\Counter;
-use App\Models\ContactSetting;
-use App\Models\AboutSection;
-use App\Models\CtaSection;
-
 
 class LandingController extends Controller
 {
+    protected $landingService;
+    protected $blogService;
+
+    public function __construct(LandingPageService $landingService, BlogService $blogService)
+    {
+        $this->landingService = $landingService;
+        $this->blogService = $blogService;
+    }
+
     /**
      * Display a listing of the resource.
      */

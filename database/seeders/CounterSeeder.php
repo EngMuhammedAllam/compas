@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\Counter;
+use App\Models\Counter\Counter;
 use Illuminate\Database\Seeder;
 
 class CounterSeeder extends Seeder

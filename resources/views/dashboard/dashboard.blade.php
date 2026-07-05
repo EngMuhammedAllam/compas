@@ -51,6 +51,7 @@
                                 <div class="avatar border-0 bg-primary-transparent text-primary">
                                     <i class="ri-article-line fs-24"></i>
                                 </div>
+                                @endforeach
                             </div>
                         </div>
                     </div>

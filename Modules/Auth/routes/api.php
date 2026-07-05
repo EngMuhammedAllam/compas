@@ -1,15 +1,15 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use Modules\Auth\app\Http\Controllers\Api\RegisterController;
-use Modules\Auth\app\Http\Controllers\Api\LoginController;
-use Modules\Auth\app\Http\Controllers\Api\AuthController;
+use Modules\Auth\App\Http\Controllers\Api\RegisterController;
+use Modules\Auth\App\Http\Controllers\Api\LoginController;
+use Modules\Auth\App\Http\Controllers\Api\AuthController;
 use Laravel\Socialite\Facades\Socialite;
 use Illuminate\Support\Facades\Http;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\GoogleController;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\GithubController;
-use Modules\Auth\app\Http\Controllers\Api\Socialite\FacebookController;
-use Modules\Auth\app\Http\Controllers\Api\ResetPassword\PasswordResetController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\GoogleController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\GithubController;
+use Modules\Auth\App\Http\Controllers\Api\Socialite\FacebookController;
+use Modules\Auth\App\Http\Controllers\Api\ResetPassword\PasswordResetController;
 
 // Route::middleware(['auth:sanctum'])->prefix('v1')->group(function () {
 //     Route::apiResource('auths', AuthController::class)->names('auth');
@@ -19,13 +19,13 @@ use Modules\Auth\app\Http\Controllers\Api\ResetPassword\PasswordResetController;
 // Public Routes
 Route::group(['prefix' => 'v1/auth'], function () {
     Route::post('/register', [AuthController::class, 'register']);
-    Route::post('/login'   , [AuthController::class, 'login']);
+    Route::post('/login', [AuthController::class, 'login']);
 });
 
 // Protected Routes
-Route::group(['prefix' => 'v1/auth', 'middleware' => ['auth:sanctum']], function () {
-    Route::post('/logout', [AuthController::class, 'logout']);
-});
+// Route::group(['prefix' => 'v1/auth', 'middleware' => ['auth:sanctum']], function () {
+//     Route::post('/logout', [AuthController::class, 'logout']);
+// });
 
 Route::middleware('web')->prefix('auth')->group(function () {
     // Google OAuth Routes
@@ -47,5 +47,4 @@ Route::prefix('v1')->group(function () {
     Route::post('forgot-password', [PasswordResetController::class, 'sendResetLinkEmail']);
     Route::post('verify-reset-token', [PasswordResetController::class, 'verifyToken']);
     Route::post('reset-password', [PasswordResetController::class, 'reset']);
-
 });

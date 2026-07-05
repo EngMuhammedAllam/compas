@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\FeatureRepositoryInterface;
-use App\Models\Feature;
+use App\Models\Feature\Feature;
 
 class FeatureService
 {

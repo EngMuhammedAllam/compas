@@ -3,7 +3,7 @@
 namespace App\Services;
 
 use App\Repositories\Interfaces\AboutRepositoryInterface;
-use App\Models\AboutSection;
+use App\Models\About\AboutSection;
 
 class AboutService
 {
@@ -50,6 +50,6 @@ class AboutService
 
     public function deletePoint(int $id)
     {
-        return \App\Models\AboutPoint::destroy($id);
+        return \App\Models\About\AboutPoint::destroy($id);
     }
 }

@@ -2,9 +2,9 @@
 
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\Feature\Feature;
 use Illuminate\Database\Seeder;
-use App\Models\Feature;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 
 class FeatureSectionSeeder extends Seeder
 {
@@ -27,7 +27,7 @@ class FeatureSectionSeeder extends Seeder
             [
                 'title' => 'حلول مخصصة',
                 'image' => 'features/icon-06.svg',
-                'description' => 'تصميم أنظمة تبريد وتكييف مركزية تلبي الاحتياجات الخاصة لكل عميل'  
+                'description' => 'تصميم أنظمة تبريد وتكييف مركزية تلبي الاحتياجات الخاصة لكل عميل'
             ]
         ]);
     }
