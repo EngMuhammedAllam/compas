@@ -121,10 +121,6 @@
           تسجيل الدخول
         </button>
 
-        <p class="sj hk xj rj ob">
-          ليس لديك حساب؟
-          <a href="" class="mk"> إنشاء حساب جديد </a>
-        </p>
       </form>
     </div>
   </section>
